@@ -31,7 +31,7 @@ const DAYS = CHANGES.map(({ date, highlights, minor }) => ({
       content: 'max-w-2xl ring-accented',
       // Clear of the close button, which sits over this corner.
       header: 'pe-14 sm:pe-16',
-      title: 'gw-title text-sm font-normal text-primary',
+      title: 'gw-title text-2xl font-normal text-primary',
       body: 'gw-scroll',
       footer: 'justify-end',
     }"

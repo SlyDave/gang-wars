@@ -92,7 +92,7 @@ const currency = computed<CurrencyCode>({
         class="gw-control gw-label text-xs"
         @click="reset"
       />
-      <!-- Takes whatever of the row is left, and is set in the accent to be noticed. Where the
+      <!-- Takes whatever of the row is left, and is stamped in red to be noticed. Where the
            row is too narrow to keep it, it drops to a line of its own, and is held to a
            sensible width there rather than stretching across the page. -->
       <UTooltip
@@ -104,9 +104,9 @@ const currency = computed<CurrencyCode>({
           target="_blank"
           label="Donate"
           icon="i-fa-donate"
-          color="primary"
-          variant="subtle"
-          class="gw-control min-w-36 flex-1 justify-center gw-label text-xs gw-glow sm:max-w-80"
+          color="error"
+          variant="solid"
+          class="gw-control min-w-36 flex-1 justify-center gw-label text-xs sm:max-w-80"
         />
         <template #content>
           <span class="leading-snug">{{ DONATE_HINT }}</span>

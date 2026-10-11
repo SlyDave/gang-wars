@@ -33,6 +33,12 @@ const hint = computed<string>(() => {
   if (isEmpty.value) {
     return 'Nothing on sale'
   }
+  // Nothing for the switch to give: what there is comes with a game, or is for another.
+  if (size === 0) {
+    return props.category.items.some((item) => item.included !== null)
+      ? 'Included with your game'
+      : 'Nothing for your games'
+  }
   return state === 'some' ? `${String(wantedCount)} of ${plural(size)}` : plural(size)
 })
 

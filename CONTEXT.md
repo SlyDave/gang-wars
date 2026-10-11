@@ -513,17 +513,17 @@ committed. `.env` was copied from the Nemesis project's folder without being dis
 
 ## 12. Things to watch
 
-| Symptom                                                    | Cause                                                                              | What to do                                                   |
-| ---------------------------------------------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------ |
-| Nothing renders: "Either manifest or precomputed data…"    | Nuxt 4.6.0 on Windows                                                              | Nuxt is held at `~4.5.2`                                     |
-| The theme snaps back after loading                         | Something in `htmlAttrs` is re-applied on hydration                                | Keep `data-theme` and `class` out of it                      |
-| A new icon is missing in dev                               | The icon collection is read at start-up                                            | Restart the dev server after `icons:generate`                |
-| A shared `?c=` link is ignored on the built site           | Nuxt strips the query while hydrating a pre-rendered page                          | The code is read at module load and applied in `onNuxtReady` |
-| Gamefound returns 403 to scripts                           | Cloudflare bot protection                                                          | Capture from a real browser. Do not work around it           |
-| A new capture differs on every line                        | Products in listing order                                                          | The capture script sorts them by id                          |
-| A renamed product keeps its old picture                    | `catalog:build` only fetches missing images                                        | Delete the file, or build with `--force`                     |
-| A file with a long name cannot be written in a temp folder | Windows' path limit                                                                | Short file names                                             |
-| An agent's preview starts the wrong project's server       | The preview tool reads `launch.json` from the folder the session began the turn in | Start it in a turn that begins in this folder                |
+| Symptom                                                    | Cause                                                                                          | What to do                                                                          |
+| ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Nothing renders: "Either manifest or precomputed data…"    | Nuxt 4.6.0 on Windows                                                                          | Nuxt is held at `~4.5.2`                                                            |
+| The theme snaps back after loading                         | Something in `htmlAttrs` is re-applied on hydration                                            | Keep `data-theme` and `class` out of it                                             |
+| A new icon is missing in dev                               | The icon collection is read at start-up                                                        | Restart the dev server after `icons:generate`                                       |
+| A shared `?c=` link is ignored on the built site           | Nuxt strips the query while hydrating a pre-rendered page                                      | The code is read at module load and applied in `onNuxtReady`                        |
+| Gamefound returns 403 to scripts                           | Cloudflare bot protection                                                                      | Capture from a real browser. Do not work around it                                  |
+| A new capture differs on every line                        | Products in listing order                                                                      | The capture script sorts them by id                                                 |
+| A renamed product keeps its old picture                    | `catalog:build` only fetches missing images                                                    | Delete the file, or build with `--force`                                            |
+| A file with a long name cannot be written in a temp folder | Windows' path limit                                                                            | Short file names                                                                    |
+| An agent's preview starts the wrong project's server       | The preview tool may read its launch configuration from the session's own folder, not this one | Start it in a session opened in this folder, or add this project there with `--cwd` |
 
 ## 13. Open, and the owner's to decide
 
