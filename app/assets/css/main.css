@@ -1,0 +1,271 @@
+@import 'tailwindcss';
+@import '@nuxt/ui';
+
+/*
+ * The theme, taken from the Gang Wars campaign page on Gamefound: sheets of newsprint ruled in
+ * black ink, headings in a tall brown gothic, labels in red capitals, and figures struck on a
+ * typewriter.
+ *
+ * `tobacco` is the brown of those headings (#8a5a2b on the page, near step 600 here). `paper`
+ * is the neutral: the cream of the sheets (around #e7e2d9) stretched into a warm scale that
+ * reaches ink. `blood` is the red of the table labels and price tags (#a4271d, step 600).
+ *
+ * Scarface 1920, the campaign's reprint, has its own look on the same page — its Night Deck
+ * and Expansions Box are black and gold — and that is the second theme. `brass` is that gold
+ * (#c9a45c, around step 400), on a ground of the oxblood the reprint's banner is set in.
+ */
+@theme static {
+  --color-tobacco-50: #faf5ee;
+  --color-tobacco-100: #f2e6d3;
+  --color-tobacco-200: #e5cda8;
+  --color-tobacco-300: #d5ae78;
+  --color-tobacco-400: #c58f50;
+  --color-tobacco-500: #b0763a;
+  --color-tobacco-600: #8f5c2c;
+  --color-tobacco-700: #744826;
+  --color-tobacco-800: #5f3b24;
+  --color-tobacco-900: #503221;
+  --color-tobacco-950: #2c1a10;
+
+  --color-brass-50: #fbf8ef;
+  --color-brass-100: #f5edd6;
+  --color-brass-200: #ead9ab;
+  --color-brass-300: #dec07a;
+  --color-brass-400: #d3a855;
+  --color-brass-500: #c5903b;
+  --color-brass-600: #a97430;
+  --color-brass-700: #8a582a;
+  --color-brass-800: #724729;
+  --color-brass-900: #603c26;
+  --color-brass-950: #361e12;
+
+  --color-blood-50: #fdf3f1;
+  --color-blood-100: #fbe4e0;
+  --color-blood-200: #f8cdc6;
+  --color-blood-300: #f1a99e;
+  --color-blood-400: #e67a69;
+  --color-blood-500: #d54f3b;
+  --color-blood-600: #a4271d;
+  --color-blood-700: #8a2018;
+  --color-blood-800: #731e18;
+  --color-blood-900: #601f1a;
+  --color-blood-950: #340c09;
+
+  --color-paper-50: #f8f5ef;
+  --color-paper-100: #f0eadf;
+  --color-paper-200: #e3dac9;
+  --color-paper-300: #cfc3ab;
+  --color-paper-400: #b1a389;
+  --color-paper-500: #8f826b;
+  --color-paper-600: #6f6454;
+  --color-paper-700: #544b40;
+  --color-paper-800: #3a342d;
+  --color-paper-900: #26221e;
+  --color-paper-950: #151310;
+}
+
+/*
+ * The campaign's own typefaces are not ours to redistribute. These are their nearest open
+ * relatives: League Gothic for the tall headings, Barlow Semi Condensed for reading, and
+ * Special Elite for the typewritten figures. Named here, they are downloaded at build time
+ * and served by the site itself (@nuxt/fonts).
+ */
+@theme {
+  --font-sans: 'Barlow Semi Condensed', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'League Gothic', 'Barlow Semi Condensed', ui-sans-serif, sans-serif;
+  --font-typewriter: 'Special Elite', ui-monospace, 'Courier New', monospace;
+}
+
+/*
+ * Gang Wars: ink on paper. This is the page as it is built, with no attribute and no class
+ * on its root, so these are stated on the root itself.
+ */
+:root {
+  --ui-radius: 0.125rem;
+
+  --ui-primary: var(--ui-color-primary-700);
+  --ui-error: var(--color-blood-600);
+  --ui-warning: var(--color-blood-600);
+
+  --ui-bg: var(--ui-color-neutral-50);
+  --ui-bg-muted: var(--ui-color-neutral-100);
+  --ui-bg-elevated: var(--ui-color-neutral-100);
+  --ui-bg-accented: var(--ui-color-neutral-300);
+  --ui-bg-inverted: var(--ui-color-neutral-900);
+
+  --ui-border: var(--ui-color-neutral-300);
+  --ui-border-muted: var(--ui-color-neutral-200);
+  --ui-border-accented: var(--ui-color-neutral-500);
+
+  --ui-text-highlighted: var(--ui-color-neutral-950);
+  --ui-text: var(--ui-color-neutral-800);
+  --ui-text-toned: var(--ui-color-neutral-800);
+  --ui-text-muted: var(--ui-color-neutral-700);
+  --ui-text-dimmed: var(--ui-color-neutral-500);
+  --ui-text-inverted: var(--ui-color-neutral-50);
+
+  /* The rules of the frames, the ground the page lies on, and the light on lit figures. */
+  --gw-line: var(--ui-color-neutral-950);
+  --gw-ground: #d9cfbc;
+  --gw-ground-shade: #c9bda6;
+  --gw-sheet: var(--ui-color-neutral-50);
+  --gw-glow: transparent;
+}
+
+/*
+ * Scarface 1920: gold on oxblood, in the dark. The page carries `dark` and `data-theme`
+ * whenever this theme is chosen (useTheme), and every component follows without knowing
+ * there are two.
+ */
+:root[data-theme='scarface'] {
+  --ui-color-primary-50: var(--color-brass-50);
+  --ui-color-primary-100: var(--color-brass-100);
+  --ui-color-primary-200: var(--color-brass-200);
+  --ui-color-primary-300: var(--color-brass-300);
+  --ui-color-primary-400: var(--color-brass-400);
+  --ui-color-primary-500: var(--color-brass-500);
+  --ui-color-primary-600: var(--color-brass-600);
+  --ui-color-primary-700: var(--color-brass-700);
+  --ui-color-primary-800: var(--color-brass-800);
+  --ui-color-primary-900: var(--color-brass-900);
+  --ui-color-primary-950: var(--color-brass-950);
+
+  --ui-primary: var(--color-brass-400);
+  --ui-error: var(--color-blood-400);
+  --ui-warning: var(--color-blood-300);
+
+  --ui-bg: #1d100f;
+  --ui-bg-muted: #241514;
+  --ui-bg-elevated: #2c1a18;
+  --ui-bg-accented: #452a26;
+  --ui-bg-inverted: var(--ui-color-neutral-50);
+
+  --ui-border: #452a26;
+  --ui-border-muted: #2c1a18;
+  --ui-border-accented: #6b453c;
+
+  --ui-text-highlighted: var(--ui-color-neutral-50);
+  --ui-text: var(--ui-color-neutral-200);
+  --ui-text-toned: var(--ui-color-neutral-200);
+  --ui-text-muted: var(--ui-color-neutral-300);
+  --ui-text-dimmed: var(--ui-color-neutral-400);
+  --ui-text-inverted: var(--ui-color-neutral-950);
+
+  --gw-line: var(--color-brass-600);
+  --gw-ground: #120908;
+  --gw-ground-shade: #2a0f0d;
+  --gw-sheet: #1d100f;
+  --gw-glow: color-mix(in oklab, var(--color-brass-400) 45%, transparent);
+}
+
+/* The page: the ground the sheets lie on, darker towards its edges. */
+body {
+  min-height: 100dvh;
+  background-color: var(--gw-ground);
+  background-image:
+    radial-gradient(ellipse 120% 80% at 50% 0%, transparent 55%, var(--gw-ground-shade) 100%),
+    radial-gradient(ellipse 70% 50% at 50% -10%, var(--gw-sheet), transparent 75%);
+  background-attachment: fixed;
+  font-variant-numeric: tabular-nums;
+  transition: background-color 0.4s;
+}
+
+/*
+ * A faint halftone, as on the campaign's graphics. It sits behind everything by its own
+ * negative layer: lifting the app above it instead would also lift it above the menus and
+ * tooltips Nuxt UI attaches to the body, which then open underneath the page.
+ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(
+    color-mix(in oklab, var(--gw-line) 9%, transparent) 1px,
+    transparent 1.4px
+  );
+  background-size: 6px 6px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 35%, transparent 30%, #000 100%);
+}
+
+/* The tall gothic of the campaign's headings. It is narrow, so it is set large. */
+@utility gw-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+/* The small bold capitals of its table labels. */
+@utility gw-label {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+}
+
+/* Figures struck on a typewriter, as its shipping tables have them. */
+@utility gw-figure {
+  font-family: var(--font-typewriter);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+/*
+ * The height of one row of a segmented choice (SegmentedChoice.vue): a line of its small
+ * capitals with their padding, and the frame's own padding and border round that. For a
+ * control that sits beside one and should stand as tall.
+ */
+@utility gw-control {
+  height: calc(2.5rem + 2px);
+}
+
+/* Text lit by the accent, for the figures that matter. On paper nothing glows. */
+@utility gw-glow {
+  text-shadow:
+    0 0 18px var(--gw-glow),
+    0 0 2px var(--gw-glow);
+}
+
+/*
+ * A sheet with a double rule round it: a heavy line, a gap, and a fine one, as round every
+ * notice on the campaign page. The heavy line is the outer element's border and the fine one
+ * the inner's, with the outer's padding as the gap between them.
+ */
+@utility gw-frame {
+  position: relative;
+  padding: 3px;
+  border: 2px solid var(--gw-line);
+  background: var(--gw-sheet);
+  box-shadow: 0 1px 0 color-mix(in oklab, var(--gw-line) 25%, transparent);
+}
+
+@utility gw-frame-body {
+  height: 100%;
+  border: 1px solid var(--gw-line);
+  background: var(--gw-sheet);
+}
+
+/* The chosen one of a row of options: inked in, like a stamp. */
+@utility gw-chosen {
+  background: var(--ui-primary);
+  color: var(--ui-text-inverted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* A slim scrollbar in ink, for the summary column that scrolls beside the choices. */
+@utility gw-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--gw-line) 55%, transparent) transparent;
+  overscroll-behavior: contain;
+}

@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "gang-wars",
+      "runtimeExecutable": "bun",
+      "runtimeArgs": ["--bun", "nuxt", "dev", "--port", "3220"],
+      "port": 3220
+    }
+  ]
+}

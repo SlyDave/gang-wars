@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" fill="#151310"/>
+  <rect x="5" y="5" width="54" height="54" fill="#f0eadf"/>
+  <rect x="9" y="9" width="46" height="46" fill="none" stroke="#151310" stroke-width="1.5"/>
+  <text x="32" y="44" text-anchor="middle" font-family="Impact, 'Arial Narrow Bold', 'Arial Narrow', sans-serif" font-size="30" fill="#8f5c2c">GW</text>
+</svg>
