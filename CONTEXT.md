@@ -22,10 +22,10 @@ committed on 11 October and held, at the owner's word, until they said to push (
 | Stack            | Nuxt 4.5 + Nuxt UI 4 (Tailwind 4), TypeScript, Bun; pre-rendered, no server      |
 | Campaign         | <https://gamefound.com/en/projects/redzen/gang-wars/rewards>, by Redzen Games    |
 | Campaign dates   | 22 September to 15 October 2026, 20:00 UTC, with an "endgame" that may run it on |
-| Catalogue        | Captured 11 October 2026, 21:40 UTC; unchanged on 12 October                     |
+| Catalogue        | Captured 12 October 2026, 18:42 UTC, after campaign Update #33                   |
 | Catalogue size   | 44 products: 4 pledges (sets), 4 bundles typed out by hand, 36 sold singly       |
 | Classified items | 36 requirements in `app/domain/classification.ts`                                |
-| Tests            | 119, all passing (`bun test`)                                                    |
+| Tests            | 128, all passing (`bun test`)                                                    |
 
 ## 2. The brief
 
@@ -188,16 +188,17 @@ calculator asks about none, so one appearing needs a decision.
 
 ### What Gamefound does not say, typed out by hand
 
-| What                                  | Where                                    | Read from                                                       |
-| ------------------------------------- | ---------------------------------------- | --------------------------------------------------------------- |
-| What the Scarface 1920 bundles hold   | `BUNDLE_CONTENTS` in `classification.ts` | The "Scarface 1920 Reprint Bundles" graphic on the project page |
-| What the pack of six Safe Boxes holds | the same                                 | Campaign Update #27                                             |
-| What each product is                  | `REQUIREMENTS`                           | Its name, its listing, the updates                              |
-| The shipping estimates                | `shipping.ts`                            | The two tables in the "Shipping" graphic                        |
-| The waves                             | `shipping.ts`                            | The "Timeline & Waves" graphic                                  |
-| Tax, and who is charged it            | `destinations.ts`                        | The "Taxes & Tariffs" graphic and the "Customs friendly" note   |
-| The gifts                             | `gift.ts`                                | Updates #10, #14 and #27, and the Newsboy's own listing         |
-| Currency symbols                      | `currencies.ts`                          | Convention, looked up                                           |
+| What                                   | Where                                    | Read from                                                       |
+| -------------------------------------- | ---------------------------------------- | --------------------------------------------------------------- |
+| What the Scarface 1920 bundles hold    | `BUNDLE_CONTENTS` in `classification.ts` | The "Scarface 1920 Reprint Bundles" graphic on the project page |
+| What the pack of six Safe Boxes holds  | the same                                 | Campaign Update #27                                             |
+| What each product is                   | `REQUIREMENTS`                           | Its name, its listing, the updates                              |
+| The shipping estimates                 | `shipping.ts`                            | The two tables in the "Shipping" graphic                        |
+| The waves                              | `shipping.ts`                            | The "Timeline & Waves" graphic                                  |
+| Tax, and who is charged it             | `destinations.ts`                        | The "Taxes & Tariffs" graphic and the "Customs friendly" note   |
+| Stretch goals and other free additions | `unlocks.ts`                             | Updates #28, #32 and #33                                        |
+| The gifts                              | `gift.ts`                                | Updates #10, #14 and #27, and the Newsboy's own listing         |
+| Currency symbols                       | `currencies.ts`                          | Convention, looked up                                           |
 
 The story is almost all images. On 11 October 2026 the ones that matter were, under
 `https://imgcdn.gamefound.com/richtextimage/richtext/`:
@@ -212,9 +213,17 @@ The story is almost all images. On 11 October 2026 the ones that matter were, un
 Gamefound gives a replaced image a new file name, so a different name in the story means the
 graphic has changed and must be read again. The campaign had no FAQ entries on that day.
 
-Before the first push, on 12 October 2026 at 18:37 UTC, the catalogue was captured again and
-compared field by field with the one committed: nothing had changed, and the four graphics
-were the same files. The committed capture is still the one of 11 October.
+On 12 October 2026 at 18:42 UTC the catalogue was captured again, after campaign Updates #32
+and #33, and compared field by field with the capture of the day before: nothing had changed —
+no product, price, description, option or picture — and the four graphics were the same
+files. That capture is the one committed. What those two updates added is free content, which
+is not in the catalogue at all: section 7.7.
+
+**How a campaign update is checked**, as those were: read its text in the props of its page's
+`ProjectUpdateContent` script (each update gives the address of the next); capture the
+catalogue again and compare every field; see that the four graphics above are the same files;
+and add what it gives away to `unlocks.ts`, with its cover picture named in
+`scripts/build-catalog.ts`.
 
 **The bundles' list prices are not the sum of their parts.** The Gang Wars pledges' are (162 =
 89 + 35 + 38), but the Gameplay Bundle lists at 228 against 241 for its contents today, so the
@@ -244,7 +253,7 @@ Prices are euros, list then effective where they differ.
 | 128719 | Safe Boxes (6-pack)                     | 19        | The pack of four (15) and the pack of two (8)            |
 
 The Gang Wars core game is also listed among the add-ons (126719), at the Basic Pledge's
-price. The calculator recommends the pledge: section 7.7.
+price. The calculator recommends the pledge: section 7.8.
 
 ## 7. How it decides — the rules
 
@@ -355,7 +364,40 @@ has a switch for each claim, all off by default.
 - The returning backer's two Safe Boxes are for gangs they already own, so they are never
   described as "for Scarface 1920, which is not included".
 
-### 7.7 The search
+### 7.7 What the campaign has unlocked
+
+The campaign adds things as it goes: stretch goals, unlocked as its funding passes a mark, and
+reveals that go into a product already on sale. None is a product, so none is in the
+catalogue: they are typed out from the updates, in `unlocks.ts`. Each comes to a backer with a
+certain thing in their pledge.
+
+| Unlock                                 | Kind         | Comes with      | Afterwards                 | Update |
+| -------------------------------------- | ------------ | --------------- | -------------------------- | ------ |
+| The Untouchables Mini-Expansion        | Stretch goal | Gang Wars       | Becomes a paid add-on      | #28    |
+| The Nightclub and its Night Associates | Stretch goal | Gangland Empire | "It won't become an Addon" | #33    |
+| The Factory and the Newspaper Tower    | Reveal       | Gangland Empire | —                          | #32    |
+| Six extra News cards                   | Reveal       | Gang Wars       | —                          | #32    |
+
+- **[owner]** Asked to read Updates #32 and #33 and bring the site up to date with what they
+  introduce. **[reading]** They introduce no product and change none, so what was added is a
+  list: a "Free with this order" panel beneath the cart, showing the unlocks the order earns
+  (`Quote.unlocks`), each with the update's cover as its picture, stored by the site.
+- An unlock is earned by a single item being in the order, however it got there: in a pledge,
+  as an add-on, or as a bonus of a bundle. So Gangland Empire bought beside Scarface 1920
+  earns the Nightclub — "free for all backers with Gangland Empire in their pledge" — which
+  has cards for that game too.
+- Under Expansions, Gangland Empire says what is free with it ("Free with it: …") whether or
+  not it is in the order. It is the one such item with a switch; what comes with the game
+  itself has nowhere to say so but the panel.
+- Nothing about what is selected or what it costs changes with an unlock.
+- **[reading]** Only the stretch goals and Update #32's additions are listed. The campaign's
+  earlier daily reveals — new neighbourhoods, jobs, corrupts, the Game Trayz insert — also
+  went into the core game free, and are not: they were part of the game by the time this site
+  was built. The four Safe Boxes, which were one of them, are modelled as an item (7.5).
+- Two of four stretch goals were unlocked on 12 October 2026. Update #33 hints at the third:
+  "a character who needs no introduction".
+
+### 7.8 The search
 
 Weighted set cover, solved exactly by `solver.ts`, as in Nemesis. An offer's cost is `[price,
 items, unpriced]`, compared in that order: the price of the rewards decides; fewer cart lines
@@ -371,7 +413,7 @@ breaks a tie; and last, fewer things without a shipping estimate.
 - The tests check it against a brute-force search over random switch, pick and claim
   combinations. Keep that test.
 
-### 7.8 The quote
+### 7.9 The quote
 
 All sums are in euro cents.
 
@@ -396,7 +438,7 @@ All sums are in euro cents.
 - **Reward value** is Gamefound's full price. For a Gang Wars pledge the campaign says that is
   what its contents cost in the late pledge ("save up to €75", Update #31).
 
-### 7.9 Tax and destinations
+### 7.10 Tax and destinations
 
 - Campaign prices are net of tax. Tax is charged on rewards and shipping, at the destination's
   standard rate (the "Taxes & Tariffs" graphic: "based on the total value of the pledge and
@@ -416,7 +458,7 @@ All sums are in euro cents.
 - The campaign cannot ship to Afghanistan, Iraq, Iran, Russia or Brazil; none is listed.
 - Choosing pounds switches VAT on at the UK's 20%, as in Nemesis.
 
-### 7.10 Currency, sharing and the cart
+### 7.11 Currency, sharing and the cart
 
 - Everything is in euros, which is what Gamefound charges. Thirty-two currencies are offered
   for reading the total: the twelve Gamefound's menu lists beside the euro, and the currency
@@ -435,12 +477,12 @@ All sums are in euro cents.
 One page, as Nemesis. Two columns on a wide screen: the choices on the left, the answer on the
 right, which stays in view. On a phone a bar at the foot carries the total.
 
-| Left: choices  | Component         | Right: answer              | Component     |
-| -------------- | ----------------- | -------------------------- | ------------- |
-| Free gifts     | `ChoicesBacker`   | Your best order            | `QuoteTotals` |
-| Games          | `ChoicesGames`    | Add to your Gamefound cart | `QuoteCart`   |
-| Extras         | `ChoicesExtras`   | Good to know               | `QuoteNotes`  |
-| Delivery & tax | `ChoicesDelivery` |                            |               |
+| Left: choices  | Component         | Right: answer              | Component      |
+| -------------- | ----------------- | -------------------------- | -------------- |
+| Free gifts     | `ChoicesBacker`   | Your best order            | `QuoteTotals`  |
+| Games          | `ChoicesGames`    | Add to your Gamefound cart | `QuoteCart`    |
+| Extras         | `ChoicesExtras`   | Free with this order       | `QuoteUnlocks` |
+| Delivery & tax | `ChoicesDelivery` | Good to know               | `QuoteNotes`   |
 
 The header has the name with the "What's New?" button across from it, then Style, Currency,
 Reset and Donate. Every panel is a `PaperPanel`.
@@ -532,7 +574,7 @@ committed. `.env` was copied from the Nemesis project's folder without being dis
 1. **HTTPS, Dependabot alerts and private vulnerability reporting** for the new repository
    (section 10).
 2. **Every [reading] in section 7**, none yet confirmed. The ones with money in them: the
-   Legacy All-in's sleeves (section 6); who is charged tax outside the EU and the UK (7.9);
+   Legacy All-in's sleeves (section 6); who is charged tax outside the EU and the UK (7.10);
    Gangland Empire, the Big Truck and the Safe Boxes going with a Scarface 1920 order, which
    brings a second shipment (7.4); gifts being free only with Gang Wars (7.6).
 3. **The whole-category rule** (7.2) means "All" with only Gang Wars takes Scarface 1920's
@@ -586,13 +628,14 @@ For any change:
 5. Write it down: `CHANGELOG.md`, and the "What's New?" list if a visitor would notice it.
 6. Commit. **Do not push until the owner says to.**
 
-| Job                           | Touch                                                                                                      |
-| ----------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| Prices changed on Gamefound   | Capture, `bun run catalog:build`, `bun test`                                                               |
-| Gamefound added a product     | Classify it in `classification.ts`: a tag, `alsoWith`, `withGame` or `needs` as it calls for               |
-| A new pledge or bundle        | A tier in `shipping.ts` if the tables price it; `BUNDLE_CONTENTS` if Gamefound lists no contents           |
-| The shipping tables changed   | `shipping.ts`, by hand from the campaign's image                                                           |
-| A new gift                    | `GIFTS` in `gift.ts`, a `GiftClaim`, a default, and its bit appended in `preferences.ts`                   |
-| A new extras switch           | `ExtraTag`, `EXTRAS`, `DEFAULT_PREFERENCES`, an icon — and its bit, which shifts the claims': section 7.10 |
-| A new destination or tax rate | `destinations.ts`; a new currency follows from it (`currencies.ts`, `CurrencyCode`)                        |
-| A new icon                    | `ICONS` in `generate-fa-icons.ts`, then `bun run icons:generate`                                           |
+| Job                           | Touch                                                                                                                                        |
+| ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| Prices changed on Gamefound   | Capture, `bun run catalog:build`, `bun test`                                                                                                 |
+| Gamefound added a product     | Classify it in `classification.ts`: a tag, `alsoWith`, `withGame` or `needs` as it calls for                                                 |
+| A new pledge or bundle        | A tier in `shipping.ts` if the tables price it; `BUNDLE_CONTENTS` if Gamefound lists no contents                                             |
+| The shipping tables changed   | `shipping.ts`, by hand from the campaign's image                                                                                             |
+| A stretch goal, or a reveal   | An entry in `UNLOCKS` in `unlocks.ts`, and its update's cover in `UPDATE_COVERS` in `scripts/build-catalog.ts`; then `bun run catalog:build` |
+| A new gift                    | `GIFTS` in `gift.ts`, a `GiftClaim`, a default, and its bit appended in `preferences.ts`                                                     |
+| A new extras switch           | `ExtraTag`, `EXTRAS`, `DEFAULT_PREFERENCES`, an icon — and its bit, which shifts the claims': section 7.11                                   |
+| A new destination or tax rate | `destinations.ts`; a new currency follows from it (`currencies.ts`, `CurrencyCode`)                                                          |
+| A new icon                    | `ICONS` in `generate-fa-icons.ts`, then `bun run icons:generate`                                                                             |

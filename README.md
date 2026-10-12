@@ -35,6 +35,7 @@ happens in the browser. There is no server.
 | Turning a combination into a full quote       | `app/domain/quote.ts`                                    |
 | The page                                      | `app/pages/index.vue`, `app/components/`                 |
 | The "What's New?" list                        | `app/domain/changes.ts`                                  |
+| Stretch goals and other free additions        | `app/domain/unlocks.ts`                                  |
 | The two themes, one per game                  | `app/assets/css/main.css`, `app/composables/useTheme.ts` |
 
 ### The search
@@ -68,6 +69,10 @@ the Scarface 1920 bundles — so counting it would wrongly favour buying everyth
   launch, the Boss Ring to whoever pledged in the first 72 hours, and two Safe Boxes to
   returning backers. With a gift's switch on it is added to a Gang Wars order at no charge;
   otherwise it is an ordinary add-on.
+- **Free with the order.** The campaign's stretch goals, and things it has added to a product
+  along the way, are not products: there is nothing to choose or pay. Each comes with a
+  certain thing in the pledge, so the page lists the ones an order earns. They are typed out
+  from the campaign's updates, in `unlocks.ts`.
 - **Reward value and saving** compare what is paid with Gamefound's full prices, which for a
   Gang Wars pledge is what the campaign says its contents will cost in the late pledge. There
   is no retail price to compare with: Gang Wars will not be sold in shops.

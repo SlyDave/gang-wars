@@ -24,7 +24,9 @@ The first release.
     expansions, mini-expansions, deluxe components, Safe Boxes, playmats, sleeves, art books,
     storage, extra solo sets and the vinyl soundtrack.
   - The catalogue as captured from Gamefound: 44 products, what each Gang Wars pledge contains,
-    and their pictures, which the site stores itself.
+    and their pictures, which the site stores itself. It was captured on 11 October and again
+    on 12 October, after campaign Updates #32 and #33, which changed no product, price,
+    description or picture in it.
   - What the three Scarface 1920 bundles and the pack of six Safe Boxes hold, typed out from
     the campaign's own account of them, since Gamefound lists each as a single product.
   - An exact search for the cheapest combination, checked in the tests against a brute-force
@@ -41,6 +43,16 @@ The first release.
     campaign's shipping tables name.
   - The choices are remembered in the browser and carried in the page's address, so an order
     can be shared as a link.
+- A "Free with this order" list, beneath the cart: what the campaign adds free to a pledge
+  that has the thing that earns it, each with its picture and the update that announced it.
+  - The two stretch goals unlocked so far: The Untouchables Mini-Expansion, with Gang Wars
+    (Update #28), and the Nightclub with its Night Associates, with Gangland Empire (Update
+    #33). It says what the campaign says becomes of each afterwards: the first becomes a paid
+    add-on, the second will not be sold.
+  - The additions of Update #32: the Factory and the Newspaper Tower, with Gangland Empire,
+    and six extra News cards, with Gang Wars.
+  - Under Expansions, Gangland Empire says what is free with it, whether or not it is in the
+    order, since that is a reason to take it.
 - Switches for the campaign's three gifts, each free on an order with Gang Wars: the Newsboy
   Mini-Expansion for whoever followed the campaign before launch, the Boss Ring Mini-Expansion
   for whoever pledged in its first 72 hours, and the pack of two Safe Boxes for returning

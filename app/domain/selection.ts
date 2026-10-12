@@ -2,6 +2,7 @@ import { getProduct } from './catalog'
 import { REQUIREMENTS, findRequirement, goesWith } from './classification'
 import { isGift, priceFor } from './gift'
 import { LINES } from './preferences'
+import { unlocksWith } from './unlocks'
 
 import type { Requirement } from './classification'
 import type { Cents, ExtraTag, GameLine, Preferences } from './types'
@@ -112,6 +113,8 @@ export interface ExtraItem {
    * the rest.
    */
   readonly included: string | null
+  /** What the campaign adds free to whoever has this item, for one it does. Null for the rest. */
+  readonly gains: string | null
 }
 
 export interface ExtraCategory {
@@ -147,6 +150,12 @@ const reasonPassedOver = (requirement: Requirement, preferences: Preferences): s
   return null
 }
 
+/** "Free with it: the Nightclub…", for an item the campaign has added things to. */
+const freeWith = (id: number): string | null => {
+  const names = unlocksWith(id).map((unlock) => unlock.name)
+  return names.length === 0 ? null : `Free with it: ${names.join('; ')}`
+}
+
 /** A category as the page shows it: its items, and how much of it is asked for. */
 export const describeExtra = (preferences: Preferences, tag: ExtraTag): ExtraCategory => {
   const items = REQUIREMENTS.filter((requirement) => requirement.tag === tag)
@@ -166,6 +175,7 @@ export const describeExtra = (preferences: Preferences, tag: ExtraTag): ExtraCat
               ? null
               : reasonPassedOver(requirement, preferences),
           included: isIncluded ? (lineEntry(requirement.line)?.brings ?? null) : null,
+          gains: freeWith(requirement.id),
         },
       }
     })

@@ -4,8 +4,9 @@
  * data/gamefound.json is the campaign's catalogue as Gamefound's own page reads it
  * (scripts/capture-gamefound.js). This trims it to what the calculator needs, writes that
  * to app/data/catalog.json, and stores every product image locally as a small WebP so the
- * site never loads anything from Gamefound. It also fetches the exchange rates for the day of
- * the capture, which the site starts from.
+ * site never loads anything from Gamefound. It does the same for the pictures of the
+ * campaign's stretch goals and reveals (app/domain/unlocks.ts), and fetches the exchange rates
+ * for the day of the capture, which the site starts from.
  *
  * Run with `bun run catalog:build` after a new capture; add `--force` to fetch every image
  * again rather than only the missing ones.
@@ -16,6 +17,7 @@ import { mkdir } from 'node:fs/promises'
 import sharp from 'sharp'
 
 import { FOREIGN_CURRENCIES, isCurrencyCode } from '../app/domain/currencies'
+import { UNLOCKS, unlockImage } from '../app/domain/unlocks'
 
 interface CapturedOptionValue {
   readonly text: string
@@ -69,6 +71,15 @@ const CATALOG = 'app/data/catalog.json'
 const IMAGE_DIR = 'public/images/products'
 const IMAGE_WIDTH = 640
 const IMAGE_QUALITY = 78
+/**
+ * The cover picture of each campaign update that announced an unlock. They are not in the
+ * capture — an update is not a product — so they are named here, by the update's number.
+ */
+const UPDATE_COVERS: Readonly<Record<number, string>> = {
+  28: 'https://imgcdn.gamefound.com/projectupdate/projects/9938/9077f731-f3a0-497c-b06b-1b9aedad1fc6.png',
+  32: 'https://imgcdn.gamefound.com/projectupdate/projects/9938/2e7614a6-39fe-4583-84ac-0fa2b650c92d.jpg',
+  33: 'https://imgcdn.gamefound.com/projectupdate/projects/9938/11bb4e56-784b-44fb-9e12-ba4503866ef7.jpg',
+}
 const RATES_URL = 'https://api.frankfurter.dev/v2/rates'
 /** Significant figures: enough for a rate of 0.8475 and of 20,060 alike. */
 const RATE_PRECISION = 5
@@ -192,6 +203,32 @@ if (unknownCurrencies.length > 0) {
 
 await mkdir(IMAGE_DIR, { recursive: true })
 
+/** Stores the picture of every unlock, as the products' are stored. */
+const storeUnlockImages = async (): Promise<number> => {
+  let stored = 0
+  for (const unlock of UNLOCKS) {
+    const source = UPDATE_COVERS[unlock.update]
+    if (source === undefined) {
+      throw new Error(`No cover picture is named for campaign update ${String(unlock.update)}`)
+    }
+    const file = `public/${unlockImage(unlock)}`
+    if (!force && (await Bun.file(file).exists())) {
+      continue
+    }
+    const response = await fetch(source)
+    if (!response.ok) {
+      throw new Error(`${String(response.status)} fetching the picture for ${unlock.name}`)
+    }
+    await mkdir(file.slice(0, file.lastIndexOf('/')), { recursive: true })
+    await sharp(await response.arrayBuffer())
+      .resize({ width: IMAGE_WIDTH, withoutEnlargement: true })
+      .webp({ quality: IMAGE_QUALITY })
+      .toFile(file)
+    stored += 1
+  }
+  return stored
+}
+
 const products = []
 for (const product of [...capture.products].sort((a, b) => a.id - b.id)) {
   products.push({
@@ -220,4 +257,8 @@ const catalog = {
 }
 
 await Bun.write(CATALOG, `${JSON.stringify(catalog, null, 2)}\n`)
+const unlockImages = await storeUnlockImages()
 console.log(`wrote ${String(products.length)} products to ${CATALOG}, images in ${IMAGE_DIR}`)
+console.log(
+  `stored ${String(unlockImages)} new unlock pictures, of ${String(UNLOCKS.length)} unlocks`,
+)

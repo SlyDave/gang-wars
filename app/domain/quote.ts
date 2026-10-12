@@ -6,12 +6,14 @@ import { EXTRAS, LINES } from './preferences'
 import { wantedRequirements } from './selection'
 import { WAVE_OF, describeWaves, hasShippingTier, shippingOf } from './shipping'
 import { solve } from './solver'
+import { unlocksFor } from './unlocks'
 
 import type { Product } from './catalog'
 import type { Destination } from './destinations'
 import type { Gift } from './gift'
 import type { Offer } from './solver'
 import type { Cents, GameLine, Preferences, Tag } from './types'
+import type { Unlock } from './unlocks'
 
 /** One item inside something in the cart. */
 export interface ContentLine {
@@ -58,6 +60,8 @@ export interface Quote {
   readonly total: Cents
   /** Items in the cart that nobody asked for, because a bundle was the cheaper way. */
   readonly bonus: readonly Product[]
+  /** What the campaign adds free to this order: stretch goals and the like (unlocks.ts). */
+  readonly unlocks: readonly Unlock[]
   /** How many separate items were asked for. */
   readonly wantedCount: number
   /** Wanted items nothing on sale provides. Empty unless the catalogue and the switches disagree. */
@@ -185,6 +189,7 @@ export const buildQuote = (preferences: Preferences): Quote => {
     taxTotal,
     total: itemsTotal + shippingTotal + taxTotal,
     bonus: contents.filter((content) => !content.wanted).map((content) => content.product),
+    unlocks: unlocksFor(new Set(contents.map((content) => content.product.id))),
     wantedCount: wanted.size,
     unavailable,
   }

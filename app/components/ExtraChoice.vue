@@ -42,15 +42,23 @@ const hint = computed<string>(() => {
   return state === 'some' ? `${String(wantedCount)} of ${plural(size)}` : plural(size)
 })
 
+/** That its game brings an item already, or, for one the switch passes over, why and that it can be had. */
+const standingOf = (item: ExtraItem): string | null => {
+  if (item.included !== null) {
+    return `${item.included}.`
+  }
+  return item.passedOver === null ? null : `${item.passedOver}. Tick it to take it.`
+}
+
 /**
- * The small print under an item: that its game brings it already, or, for one the switch
- * passes over, why and that it can be had.
+ * The small print under an item: how it stands with the order, and what the campaign gives
+ * free with it — a reason to want it, whoever it is for.
  */
 const noteFor = (item: ExtraItem): { description?: string } => {
-  if (item.included !== null) {
-    return { description: `${item.included}.` }
-  }
-  return item.passedOver === null ? {} : { description: `${item.passedOver}. Tick it to take it.` }
+  const notes = [standingOf(item), item.gains === null ? null : `${item.gains}.`].filter(
+    (note) => note !== null,
+  )
+  return notes.length === 0 ? {} : { description: notes.join(' ') }
 }
 
 const priceOf = (item: ExtraItem): string => {

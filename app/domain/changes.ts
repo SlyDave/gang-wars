@@ -28,6 +28,7 @@ export const CHANGES: readonly ChangeDay[] = [
     highlights: [
       'The calculator goes live: switch on the games and extras you want from the Gang Wars campaign, and it finds the cheapest combination of pledges, bundles and add-ons, with the campaign’s shipping estimates, VAT and the list to add to your Gamefound cart.',
       'The Scarface 1920 reprint is in it too, with its three bundles and every reprint add-on.',
+      'A “Free with this order” list of what the campaign adds to your pledge: the stretch goals it has unlocked — The Untouchables with Gang Wars, the Nightclub with Gangland Empire — and the two buildings and six News cards added in Update #32.',
       'Switches for the campaign’s three free gifts: the Newsboy for pre-launch followers, the Boss Ring for first-72-hour backers, and two Safe Boxes for returning backers.',
       'Open any extra to pick single items, with or without the game they belong to.',
       'Two styles, one for each game, and the total in any of thirty-two currencies.',
