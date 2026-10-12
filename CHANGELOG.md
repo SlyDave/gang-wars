@@ -5,12 +5,12 @@ All notable changes to the Gang Wars Rewards Calculator are documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). The project has
 no version numbers, and so does not follow Semantic Versioning: the site is deployed from `main`
 as changes are pushed, and each section here is a day, newest first, written year-month-day.
-Each date links to that day's commits.
+Each date links to that day's commits; the first, to everything up to it.
 
 The "What's New?" list on the site is the short version of this file, with only what a visitor
 would notice. It is kept in [`app/domain/changes.ts`](app/domain/changes.ts).
 
-## [2026-10-11]
+## [2026-10-12]
 
 The first release.
 
@@ -75,4 +75,4 @@ The first release.
   not keep the checkout's credentials. Dependabot keeps the pins current.
 - A capture may only contain Gamefound addresses.
 
-[2026-10-11]: https://github.com/SlyDave/gang-wars/commits/main/?since=2026-10-11&until=2026-10-11
+[2026-10-12]: https://github.com/SlyDave/gang-wars/commits/main/?until=2026-10-12

@@ -24,7 +24,7 @@ export const CHANGELOG_URL = 'https://github.com/SlyDave/gang-wars/blob/main/CHA
 
 export const CHANGES: readonly ChangeDay[] = [
   {
-    date: '2026-10-11',
+    date: '2026-10-12',
     highlights: [
       'The calculator goes live: switch on the games and extras you want from the Gang Wars campaign, and it finds the cheapest combination of pledges, bundles and add-ons, with the campaign’s shipping estimates, VAT and the list to add to your Gamefound cart.',
       'The Scarface 1920 reprint is in it too, with its three bundles and every reprint add-on.',

@@ -73,11 +73,13 @@ describe('CHANGELOG.md', () => {
     }
   })
 
-  test('links every day to its commits', () => {
+  // The first release was built before the day it went live, so its link has no start.
+  test('links every day to its commits, and the first to everything up to it', () => {
+    const commits = 'https://github.com/SlyDave/gang-wars/commits/main/'
+    const first = sections.at(-1) ?? ''
     for (const date of sections) {
-      expect(changelog, `a link for ${date}`).toContain(
-        `[${date}]: https://github.com/SlyDave/gang-wars/commits/main/?since=${date}&until=${date}`,
-      )
+      const range = date === first ? `?until=${date}` : `?since=${date}&until=${date}`
+      expect(changelog, `a link for ${date}`).toContain(`[${date}]: ${commits}${range}`)
     }
   })
 })

@@ -8,22 +8,21 @@ It is a companion to three shorter files: [README.md](README.md) is the develope
 [SECURITY.md](SECURITY.md) is the security posture, and [CHANGELOG.md](CHANGELOG.md) is what
 changed and when. Where they overlap, this file has the reasoning and they have the summary.
 
-State described: 11 October 2026, the day the project was built. **It is committed locally and
-not yet pushed or deployed**: the owner asked for every push to wait for their word (section
-3), and the steps that are theirs to take are in section 10.
+State described: 12 October 2026, the day of the first push. The project was built and
+committed on 11 October and held, at the owner's word, until they said to push (section 3).
 
 ## 1. Snapshot
 
 |                  |                                                                                  |
 | ---------------- | -------------------------------------------------------------------------------- |
 | What it is       | A static site that works out the cheapest way to back Gang Wars on Gamefound     |
-| To be live at    | <https://gangwars.slydave.com/>                                                  |
+| Live at          | <https://gangwars.slydave.com/>                                                  |
 | Repository       | <https://github.com/SlyDave/gang-wars> — public, GPL v3, default branch `main`   |
 | Hosting          | GitHub Pages, built by GitHub Actions, custom domain (DNS through Cloudflare)    |
 | Stack            | Nuxt 4.5 + Nuxt UI 4 (Tailwind 4), TypeScript, Bun; pre-rendered, no server      |
 | Campaign         | <https://gamefound.com/en/projects/redzen/gang-wars/rewards>, by Redzen Games    |
 | Campaign dates   | 22 September to 15 October 2026, 20:00 UTC, with an "endgame" that may run it on |
-| Catalogue        | Captured 11 October 2026, 21:40 UTC                                              |
+| Catalogue        | Captured 11 October 2026, 21:40 UTC; unchanged on 12 October                     |
 | Catalogue size   | 44 products: 4 pledges (sets), 4 bundles typed out by hand, 36 sold singly       |
 | Classified items | 36 requirements in `app/domain/classification.ts`                                |
 | Tests            | 119, all passing (`bun test`)                                                    |
@@ -212,6 +211,10 @@ The story is almost all images. On 11 October 2026 the ones that matter were, un
 
 Gamefound gives a replaced image a new file name, so a different name in the story means the
 graphic has changed and must be read again. The campaign had no FAQ entries on that day.
+
+Before the first push, on 12 October 2026 at 18:37 UTC, the catalogue was captured again and
+compared field by field with the one committed: nothing had changed, and the four graphics
+were the same files. The committed capture is still the one of 11 October.
 
 **The bundles' list prices are not the sum of their parts.** The Gang Wars pledges' are (162 =
 89 + 35 + 38), but the Gameplay Bundle lists at 228 against 241 for its contents today, so the
@@ -478,9 +481,10 @@ Reset and Donate. Every panel is a `PaperPanel`.
   `bun run icons:generate` and restart the dev server.
 - `CHANGELOG.md` follows Keep a Changelog 1.1.0, with days for versions. The site's list is
   `CHANGES` in `app/domain/changes.ts`: per day, the highlights a visitor would notice and a
-  count of smaller visible changes. `tests/changes.test.ts` keeps the two in step. Both are
-  dated 11 October 2026 for the first release: **if the first push is on another day, put the
-  date right in both before pushing.**
+  count of smaller visible changes. `tests/changes.test.ts` keeps the two in step. The first
+  release is dated 12 October 2026 in both, the day it went live, though it was built the day
+  before; so its link in the changelog is to every commit up to that day. A change is dated
+  the day it goes live: **if a push is held over to another day, put the date right first.**
 
 ## 9. Strictness and quality gates
 
@@ -488,21 +492,19 @@ As Nemesis: TypeScript at its strictest in all four of Nuxt's tsconfigs, ESLint'
 strict-type-checked and stylistic sets with `--max-warnings 0`, Prettier, a pre-commit hook
 running lint and the format check, and CI running `bun run check` and the build.
 
-## 10. Build and deployment — and what is still to do
+## 10. Build and deployment
 
 Pushing to `main` runs `.github/workflows/deploy.yml`: install, test, `nuxt generate`, publish
 to GitHub Pages. `public/CNAME` names `gangwars.slydave.com`.
 
-**Not yet done, in order:**
+The owner set up the three things that were theirs before the first push, on 12 October 2026:
+the repository secret `FONTAWESOME_PACKAGE_TOKEN`; Pages, with "GitHub Actions" as its source
+and `gangwars.slydave.com` as its custom domain; and the domain's DNS record, through
+Cloudflare.
 
-1. **The owner says to push.** Then `git push -u origin main`.
-2. **The owner adds the Font Awesome secret**, or the site builds with Free icons:
-   `gh secret set FONTAWESOME_PACKAGE_TOKEN --repo SlyDave/gang-wars` (it asks for the value).
-3. **Pages**: source "GitHub Actions", custom domain `gangwars.slydave.com`, in the
-   repository's settings.
-4. **DNS**: a `CNAME` record for `gangwars` pointing at `slydave.github.io`, in Cloudflare.
-5. As for Nemesis, the owner may want: "Always Use HTTPS" in Cloudflare, Dependabot alerts,
-   and private vulnerability reporting, which `SECURITY.md` links to.
+Still the owner's to consider, as for the Nemesis project: enforcing HTTPS (Pages reported
+`https_enforced: false` on that day), Dependabot alerts, and private vulnerability reporting,
+which `SECURITY.md` links to.
 
 ## 11. Security
 
@@ -527,7 +529,8 @@ committed. `.env` was copied from the Nemesis project's folder without being dis
 
 ## 13. Open, and the owner's to decide
 
-1. **The first push and deploy**, and the steps in section 10.
+1. **HTTPS, Dependabot alerts and private vulnerability reporting** for the new repository
+   (section 10).
 2. **Every [reading] in section 7**, none yet confirmed. The ones with money in them: the
    Legacy All-in's sleeves (section 6); who is charged tax outside the EU and the UK (7.9);
    Gangland Empire, the Big Truck and the Safe Boxes going with a Scarface 1920 order, which
