@@ -17,7 +17,8 @@ import { mkdir } from 'node:fs/promises'
 import sharp from 'sharp'
 
 import { FOREIGN_CURRENCIES, isCurrencyCode } from '../app/domain/currencies'
-import { UNLOCKS, unlockImage } from '../app/domain/unlocks'
+import { ENDGAME_ADDON } from '../app/domain/endgame'
+import { UNLOCKS, updateCover } from '../app/domain/unlocks'
 
 interface CapturedOptionValue {
   readonly text: string
@@ -72,13 +73,15 @@ const IMAGE_DIR = 'public/images/products'
 const IMAGE_WIDTH = 640
 const IMAGE_QUALITY = 78
 /**
- * The cover picture of each campaign update that announced an unlock. They are not in the
- * capture — an update is not a product — so they are named here, by the update's number.
+ * The cover picture of each campaign update that announced something the site shows: an
+ * unlock, or the Endgame's add-on. They are not in the capture — an update is not a product —
+ * so they are named here, by the update's number.
  */
 const UPDATE_COVERS: Readonly<Record<number, string>> = {
   28: 'https://imgcdn.gamefound.com/projectupdate/projects/9938/9077f731-f3a0-497c-b06b-1b9aedad1fc6.png',
   32: 'https://imgcdn.gamefound.com/projectupdate/projects/9938/2e7614a6-39fe-4583-84ac-0fa2b650c92d.jpg',
   33: 'https://imgcdn.gamefound.com/projectupdate/projects/9938/11bb4e56-784b-44fb-9e12-ba4503866ef7.jpg',
+  34: 'https://imgcdn.gamefound.com/projectupdate/projects/9938/aa16902d-2e42-434e-a7ad-1df52a76c209.jpg',
 }
 const RATES_URL = 'https://api.frankfurter.dev/v2/rates'
 /** Significant figures: enough for a rate of 0.8475 and of 20,060 alike. */
@@ -203,21 +206,24 @@ if (unknownCurrencies.length > 0) {
 
 await mkdir(IMAGE_DIR, { recursive: true })
 
-/** Stores the picture of every unlock, as the products' are stored. */
-const storeUnlockImages = async (): Promise<number> => {
+/** The updates whose covers the site shows: each unlock's, and the Endgame add-on's. */
+const shownUpdates = [...new Set([...UNLOCKS.map((unlock) => unlock.update), ENDGAME_ADDON.update])]
+
+/** Stores the cover of every such update, as the products' pictures are stored. */
+const storeUpdateCovers = async (): Promise<number> => {
   let stored = 0
-  for (const unlock of UNLOCKS) {
-    const source = UPDATE_COVERS[unlock.update]
+  for (const update of shownUpdates) {
+    const source = UPDATE_COVERS[update]
     if (source === undefined) {
-      throw new Error(`No cover picture is named for campaign update ${String(unlock.update)}`)
+      throw new Error(`No cover picture is named for campaign update ${String(update)}`)
     }
-    const file = `public/${unlockImage(unlock)}`
+    const file = `public/${updateCover(update)}`
     if (!force && (await Bun.file(file).exists())) {
       continue
     }
     const response = await fetch(source)
     if (!response.ok) {
-      throw new Error(`${String(response.status)} fetching the picture for ${unlock.name}`)
+      throw new Error(`${String(response.status)} fetching the cover of update ${String(update)}`)
     }
     await mkdir(file.slice(0, file.lastIndexOf('/')), { recursive: true })
     await sharp(await response.arrayBuffer())
@@ -257,8 +263,8 @@ const catalog = {
 }
 
 await Bun.write(CATALOG, `${JSON.stringify(catalog, null, 2)}\n`)
-const unlockImages = await storeUnlockImages()
+const covers = await storeUpdateCovers()
 console.log(`wrote ${String(products.length)} products to ${CATALOG}, images in ${IMAGE_DIR}`)
 console.log(
-  `stored ${String(unlockImages)} new unlock pictures, of ${String(UNLOCKS.length)} unlocks`,
+  `stored ${String(covers)} new update covers, of the ${String(shownUpdates.length)} the site shows`,
 )

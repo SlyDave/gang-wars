@@ -10,6 +10,26 @@ Each date links to that day's commits; the first, to everything up to it.
 The "What's New?" list on the site is the short version of this file, with only what a visitor
 would notice. It is kept in [`app/domain/changes.ts`](app/domain/changes.ts).
 
+## [2026-10-13]
+
+### Added
+
+- An Endgame panel, beneath "Free with this order", from campaign Update #34. It tells of the
+  Gang Wars Poker Deck, the add-on Redzen Games publish the moment the Endgame begins: €4
+  while the Endgame lasts and €12 afterwards, in the pledge manager. It gives the time the
+  Endgame begins — the campaign's scheduled end, 15 October at 20:00 UTC — and the same by the
+  visitor's own clock, and says how the Endgame works: a ten-minute countdown that each
+  backer's first purchase puts back.
+  - The deck is not on sale until then, so it is not a product: it is not in the catalogue,
+    the search or the cart. The panel says so, and after the scheduled end says instead that
+    the deck is on sale and has to be added on Gamefound by hand.
+  - A test fails once a capture brings the deck in, as the cue to classify it and retire the
+    panel.
+
+### Changed
+
+- The catalogue was captured again after campaign Update #34. Nothing in it had changed.
+
 ## [2026-10-12]
 
 The first release.
@@ -87,4 +107,5 @@ The first release.
   not keep the checkout's credentials. Dependabot keeps the pins current.
 - A capture may only contain Gamefound addresses.
 
+[2026-10-13]: https://github.com/SlyDave/gang-wars/commits/main/?since=2026-10-13&until=2026-10-13
 [2026-10-12]: https://github.com/SlyDave/gang-wars/commits/main/?until=2026-10-12

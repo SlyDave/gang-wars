@@ -70,9 +70,14 @@ export const UNLOCKS: readonly Unlock[] = [
   },
 ]
 
-/** Where the site keeps an unlock's picture, relative to its root. */
-export const unlockImage = (unlock: Unlock): string =>
-  `images/unlocks/${String(unlock.update)}.webp`
+/**
+ * Where the site keeps the cover picture of a campaign update, relative to its root. An
+ * update's cover shows the thing it announces, so it is that thing's picture here.
+ */
+export const updateCover = (update: number): string => `images/unlocks/${String(update)}.webp`
+
+/** Where the site keeps an unlock's picture: the cover of the update that announced it. */
+export const unlockImage = (unlock: Unlock): string => updateCover(unlock.update)
 
 /** The unlocks that come with a product. */
 export const unlocksWith = (productId: number): readonly Unlock[] =>

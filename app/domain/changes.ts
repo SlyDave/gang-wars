@@ -24,6 +24,14 @@ export const CHANGELOG_URL = 'https://github.com/SlyDave/gang-wars/blob/main/CHA
 
 export const CHANGES: readonly ChangeDay[] = [
   {
+    date: '2026-10-13',
+    highlights: [
+      'The Endgame, from campaign Update #34: when it begins, how it keeps the campaign open, and the Gang Wars Poker Deck it brings — €4 while it lasts, €12 afterwards. The deck is not on sale until the Endgame begins, so it is not in the cart yet.',
+      'Prices and bundles read again from Gamefound after that update. Nothing has changed.',
+    ],
+    minor: 0,
+  },
+  {
     date: '2026-10-12',
     highlights: [
       'The calculator goes live: switch on the games and extras you want from the Gang Wars campaign, and it finds the cheapest combination of pledges, bundles and add-ons, with the campaign’s shipping estimates, VAT and the list to add to your Gamefound cart.',

@@ -8,8 +8,9 @@ It is a companion to three shorter files: [README.md](README.md) is the develope
 [SECURITY.md](SECURITY.md) is the security posture, and [CHANGELOG.md](CHANGELOG.md) is what
 changed and when. Where they overlap, this file has the reasoning and they have the summary.
 
-State described: 12 October 2026, the day of the first push. The project was built and
-committed on 11 October and held, at the owner's word, until they said to push (section 3).
+State described: 13 October 2026, after campaign Update #34. The project was built and
+committed on 11 October, held at the owner's word, and first pushed on 12 October (section 3).
+**Something is due on 15 October**: section 7.8.
 
 ## 1. Snapshot
 
@@ -22,10 +23,10 @@ committed on 11 October and held, at the owner's word, until they said to push (
 | Stack            | Nuxt 4.5 + Nuxt UI 4 (Tailwind 4), TypeScript, Bun; pre-rendered, no server      |
 | Campaign         | <https://gamefound.com/en/projects/redzen/gang-wars/rewards>, by Redzen Games    |
 | Campaign dates   | 22 September to 15 October 2026, 20:00 UTC, with an "endgame" that may run it on |
-| Catalogue        | Captured 12 October 2026, 18:42 UTC, after campaign Update #33                   |
+| Catalogue        | Captured 13 October 2026, 19:05 UTC, after campaign Update #34                   |
 | Catalogue size   | 44 products: 4 pledges (sets), 4 bundles typed out by hand, 36 sold singly       |
 | Classified items | 36 requirements in `app/domain/classification.ts`                                |
-| Tests            | 128, all passing (`bun test`)                                                    |
+| Tests            | 132, all passing (`bun test`)                                                    |
 
 ## 2. The brief
 
@@ -213,6 +214,9 @@ The story is almost all images. On 11 October 2026 the ones that matter were, un
 Gamefound gives a replaced image a new file name, so a different name in the story means the
 graphic has changed and must be read again. The campaign had no FAQ entries on that day.
 
+On 13 October 2026 at 19:05 UTC it was captured again after Update #34, with the same
+result, and that capture is the one committed now.
+
 On 12 October 2026 at 18:42 UTC the catalogue was captured again, after campaign Updates #32
 and #33, and compared field by field with the capture of the day before: nothing had changed —
 no product, price, description, option or picture — and the four graphics were the same
@@ -253,7 +257,7 @@ Prices are euros, list then effective where they differ.
 | 128719 | Safe Boxes (6-pack)                     | 19        | The pack of four (15) and the pack of two (8)            |
 
 The Gang Wars core game is also listed among the add-ons (126719), at the Basic Pledge's
-price. The calculator recommends the pledge: section 7.8.
+price. The calculator recommends the pledge: section 7.9.
 
 ## 7. How it decides — the rules
 
@@ -397,7 +401,44 @@ certain thing in their pledge.
 - Two of four stretch goals were unlocked on 12 October 2026. Update #33 hints at the third:
   "a character who needs no introduction".
 
-### 7.8 The search
+### 7.8 The Endgame, and what is due on 15 October
+
+Campaign Update #34 (13 October 2026) announces two things.
+
+- **The Endgame.** Gamefound does not close the campaign at its scheduled end, 15 October
+  2026 at 20:00 UTC. A ten-minute countdown starts then, and every backer's first purchase
+  after that puts it back to ten minutes, so the campaign stays open for as long as people
+  keep buying. Redzen's last campaign ran sixteen hours over.
+- **The Gang Wars Poker Deck**, an add-on published "the moment the Endgame begins": €4 while
+  the Endgame lasts, then "its regular price of €12" in the pledge manager. The update also
+  ties it to the third stretch goal, not yet unlocked.
+
+**[owner]** Asked to read the update and act on whatever needed it. **[reading]** The deck is
+not on sale yet — a capture on the day found the same 44 products — so it cannot be a product
+here: not in the catalogue, the search or the cart. What was added is a panel that tells of
+it (`QuoteEndgame`, `endgame.ts`): its name, both prices, the update's cover as its picture,
+when the Endgame begins in UTC and by the visitor's own clock, and how the Endgame works.
+
+- The panel changes by itself at the scheduled end. Before, the deck is "not on sale yet";
+  after, it "went on sale when the Endgame began" and the visitor is told to add it on
+  Gamefound by hand, since the catalogue was read before it existed. It cannot know whether
+  the Endgame is still running, and does not say.
+- The page is built ahead of time, so which of the two it shows starts as it was at the build
+  (`useState`, handed to the browser with the page) and is corrected once the page is
+  running. The visitor's local time is only filled in then, too. Both are to keep the built
+  page and the browser's first rendering the same.
+
+**What is due once the Endgame has begun** (from 15 October, 20:00 UTC):
+
+1. Capture the catalogue again. The deck will be a new product; `bun test` fails twice — the
+   classification does not know it, and `tests/endgame.test.ts` finds it in the catalogue.
+2. Classify it in `classification.ts`. It is a Gang Wars add-on, and will ship with Gang Wars.
+   It needs a switch: a new extra, or a place under an existing one — the owner's to say.
+3. Retire the panel, or cut it down to how the Endgame works; drop `ENDGAME_ADDON` and its
+   test once the deck is an ordinary product.
+4. Its price will change when the Endgame ends, and so will every pledge's: section 13.
+
+### 7.9 The search
 
 Weighted set cover, solved exactly by `solver.ts`, as in Nemesis. An offer's cost is `[price,
 items, unpriced]`, compared in that order: the price of the rewards decides; fewer cart lines
@@ -413,7 +454,7 @@ breaks a tie; and last, fewer things without a shipping estimate.
 - The tests check it against a brute-force search over random switch, pick and claim
   combinations. Keep that test.
 
-### 7.9 The quote
+### 7.10 The quote
 
 All sums are in euro cents.
 
@@ -438,7 +479,7 @@ All sums are in euro cents.
 - **Reward value** is Gamefound's full price. For a Gang Wars pledge the campaign says that is
   what its contents cost in the late pledge ("save up to €75", Update #31).
 
-### 7.10 Tax and destinations
+### 7.11 Tax and destinations
 
 - Campaign prices are net of tax. Tax is charged on rewards and shipping, at the destination's
   standard rate (the "Taxes & Tariffs" graphic: "based on the total value of the pledge and
@@ -458,7 +499,7 @@ All sums are in euro cents.
 - The campaign cannot ship to Afghanistan, Iraq, Iran, Russia or Brazil; none is listed.
 - Choosing pounds switches VAT on at the UK's 20%, as in Nemesis.
 
-### 7.11 Currency, sharing and the cart
+### 7.12 Currency, sharing and the cart
 
 - Everything is in euros, which is what Gamefound charges. Thirty-two currencies are offered
   for reading the total: the twelve Gamefound's menu lists beside the euro, and the currency
@@ -482,7 +523,8 @@ right, which stays in view. On a phone a bar at the foot carries the total.
 | Free gifts     | `ChoicesBacker`   | Your best order            | `QuoteTotals`  |
 | Games          | `ChoicesGames`    | Add to your Gamefound cart | `QuoteCart`    |
 | Extras         | `ChoicesExtras`   | Free with this order       | `QuoteUnlocks` |
-| Delivery & tax | `ChoicesDelivery` | Good to know               | `QuoteNotes`   |
+| Delivery & tax | `ChoicesDelivery` | The Endgame                | `QuoteEndgame` |
+|                |                   | Good to know               | `QuoteNotes`   |
 
 The header has the name with the "What's New?" button across from it, then Style, Currency,
 Reset and Donate. Every panel is a `PaperPanel`.
@@ -574,14 +616,15 @@ committed. `.env` was copied from the Nemesis project's folder without being dis
 1. **HTTPS, Dependabot alerts and private vulnerability reporting** for the new repository
    (section 10).
 2. **Every [reading] in section 7**, none yet confirmed. The ones with money in them: the
-   Legacy All-in's sleeves (section 6); who is charged tax outside the EU and the UK (7.10);
+   Legacy All-in's sleeves (section 6); who is charged tax outside the EU and the UK (7.11);
    Gangland Empire, the Big Truck and the Safe Boxes going with a Scarface 1920 order, which
    brings a second shipment (7.4); gifts being free only with Gang Wars (7.6).
 3. **The whole-category rule** (7.2) means "All" with only Gang Wars takes Scarface 1920's
    storage boxes and its record. That is the Nemesis rule, kept; it reads more oddly here.
-4. **The campaign is nearly over.** It ends 15 October 2026 at 20:00 UTC, unless its endgame
-   runs it on. Two stretch goals were still to unlock and reveals were promised daily: capture
-   again whenever Gamefound changes something. After it ends, the stretch goals become paid
+4. **The campaign is nearly over, and the Endgame brings a product.** Its scheduled end is 15
+   October 2026 at 20:00 UTC, and the Poker Deck goes on sale at that moment: section 7.8 has
+   what to do then. Two stretch goals were still to unlock on 13 October, and reveals were
+   promised daily: capture again whenever Gamefound changes something. After it ends, the stretch goals become paid
    add-ons and the pledge prices rise to their list prices, so the site will need capturing
    again for the late pledge, or a notice that it describes the campaign.
 5. **How the Boss Ring reaches an early backer's pledge** is not said by the campaign; the
@@ -636,6 +679,6 @@ For any change:
 | The shipping tables changed   | `shipping.ts`, by hand from the campaign's image                                                                                             |
 | A stretch goal, or a reveal   | An entry in `UNLOCKS` in `unlocks.ts`, and its update's cover in `UPDATE_COVERS` in `scripts/build-catalog.ts`; then `bun run catalog:build` |
 | A new gift                    | `GIFTS` in `gift.ts`, a `GiftClaim`, a default, and its bit appended in `preferences.ts`                                                     |
-| A new extras switch           | `ExtraTag`, `EXTRAS`, `DEFAULT_PREFERENCES`, an icon — and its bit, which shifts the claims': section 7.11                                   |
+| A new extras switch           | `ExtraTag`, `EXTRAS`, `DEFAULT_PREFERENCES`, an icon — and its bit, which shifts the claims': section 7.12                                   |
 | A new destination or tax rate | `destinations.ts`; a new currency follows from it (`currencies.ts`, `CurrencyCode`)                                                          |
 | A new icon                    | `ICONS` in `generate-fa-icons.ts`, then `bun run icons:generate`                                                                             |
