@@ -1,5 +1,5 @@
 {
-  "capturedAt": "2026-10-13T19:05:22.201Z",
+  "capturedAt": "2026-10-14T19:53:07.661Z",
   "source": "https://gamefound.com/en/projects/redzen/gang-wars/rewards",
   "projectId": 9938,
   "baseCurrency": "EUR",
@@ -8,14 +8,32 @@
     {
       "code": "AUD",
       "symbol": "A$",
-      "eurPerUnit": 0.6237525,
-      "eurPerUnitWithCommission": 0.60972874
+      "eurPerUnit": 0.62371359,
+      "eurPerUnitWithCommission": 0.6096907
     },
     {
       "code": "CAD",
       "symbol": "C$",
-      "eurPerUnit": 0.62711652,
-      "eurPerUnitWithCommission": 0.61301713
+      "eurPerUnit": 0.62762819,
+      "eurPerUnitWithCommission": 0.61351729
+    },
+    {
+      "code": "DKK",
+      "symbol": "kr.",
+      "eurPerUnit": 0.1337739,
+      "eurPerUnitWithCommission": 0.13076628
+    },
+    {
+      "code": "GBP",
+      "symbol": "£",
+      "eurPerUnit": 1.18399242,
+      "eurPerUnitWithCommission": 1.15737284
+    },
+    {
+      "code": "HKD",
+      "symbol": "HK$",
+      "eurPerUnit": 0.11389262,
+      "eurPerUnitWithCommission": 0.11133198
     },
     {
       "code": "CHF",
@@ -24,58 +42,40 @@
       "eurPerUnitWithCommission": 1.04973916
     },
     {
-      "code": "DKK",
-      "symbol": "kr.",
-      "eurPerUnit": 0.13378284,
-      "eurPerUnitWithCommission": 0.13077501
-    },
-    {
-      "code": "GBP",
-      "symbol": "£",
-      "eurPerUnit": 1.18374015,
-      "eurPerUnitWithCommission": 1.15712625
-    },
-    {
-      "code": "HKD",
-      "symbol": "HK$",
-      "eurPerUnit": 0.11396921,
-      "eurPerUnitWithCommission": 0.11140685
-    },
-    {
       "code": "NOK",
       "symbol": "kr",
-      "eurPerUnit": 0.09349727,
-      "eurPerUnitWithCommission": 0.09139518
+      "eurPerUnit": 0.09373389,
+      "eurPerUnitWithCommission": 0.09162648
     },
     {
       "code": "NZD",
       "symbol": "NZ$",
-      "eurPerUnit": 0.50080128,
-      "eurPerUnitWithCommission": 0.48954182
+      "eurPerUnit": 0.50173097,
+      "eurPerUnitWithCommission": 0.49045061
     },
     {
       "code": "PLN",
       "symbol": "zł",
-      "eurPerUnit": 0.22805017,
-      "eurPerUnitWithCommission": 0.22292294
+      "eurPerUnit": 0.22847743,
+      "eurPerUnitWithCommission": 0.2233406
     },
     {
       "code": "SEK",
       "symbol": "kr",
-      "eurPerUnit": 0.08931362,
-      "eurPerUnitWithCommission": 0.08730559
+      "eurPerUnit": 0.08952712,
+      "eurPerUnitWithCommission": 0.08751429
     },
     {
       "code": "SGD",
       "symbol": "S$",
-      "eurPerUnit": 0.69861674,
-      "eurPerUnitWithCommission": 0.68290981
+      "eurPerUnit": 0.69837279,
+      "eurPerUnitWithCommission": 0.68267135
     },
     {
       "code": "USD",
       "symbol": "$",
-      "eurPerUnit": 0.89437439,
-      "eurPerUnitWithCommission": 0.87426627
+      "eurPerUnit": 0.8938148,
+      "eurPerUnitWithCommission": 0.87371926
     }
   ],
   "categories": [

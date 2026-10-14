@@ -102,9 +102,9 @@ const hasBegun = computed<boolean>(() => phase.value === 'begun')
           />
         </div>
         <p class="text-xs text-muted">
-          A poker deck in red and gold, with the characters of Gang Wars on its cards: a keepsake
-          and, the campaign says, something to play Gang Wars with once its next stretch goal is
-          unlocked.
+          A poker deck in red and gold, with the characters of Gang Wars on its cards: a keepsake,
+          and a deck to play Jack “Poker” Hart with — the Fixer unlocked as a stretch goal, whose
+          bets are settled by drawing from one, though any poker deck will do.
           <template v-if="hasBegun">
             It went on sale when the Endgame began, on {{ beginsAt }}, at
             {{ format(ENDGAME_ADDON.price) }} for as long as the Endgame lasts; afterwards it is

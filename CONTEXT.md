@@ -23,10 +23,10 @@ committed on 11 October, held at the owner's word, and first pushed on 12 Octobe
 | Stack            | Nuxt 4.5 + Nuxt UI 4 (Tailwind 4), TypeScript, Bun; pre-rendered, no server      |
 | Campaign         | <https://gamefound.com/en/projects/redzen/gang-wars/rewards>, by Redzen Games    |
 | Campaign dates   | 22 September to 15 October 2026, 20:00 UTC, with an "endgame" that may run it on |
-| Catalogue        | Captured 13 October 2026, 19:05 UTC, after campaign Update #34                   |
+| Catalogue        | Captured 14 October 2026, 19:53 UTC, after campaign Update #36                   |
 | Catalogue size   | 44 products: 4 pledges (sets), 4 bundles typed out by hand, 36 sold singly       |
 | Classified items | 36 requirements in `app/domain/classification.ts`                                |
-| Tests            | 132, all passing (`bun test`)                                                    |
+| Tests            | 134, all passing (`bun test`)                                                    |
 
 ## 2. The brief
 
@@ -375,31 +375,45 @@ reveals that go into a product already on sale. None is a product, so none is in
 catalogue: they are typed out from the updates, in `unlocks.ts`. Each comes to a backer with a
 certain thing in their pledge.
 
-| Unlock                                 | Kind         | Comes with      | Afterwards                 | Update |
-| -------------------------------------- | ------------ | --------------- | -------------------------- | ------ |
-| The Untouchables Mini-Expansion        | Stretch goal | Gang Wars       | Becomes a paid add-on      | #28    |
-| The Nightclub and its Night Associates | Stretch goal | Gangland Empire | "It won't become an Addon" | #33    |
-| The Factory and the Newspaper Tower    | Reveal       | Gangland Empire | —                          | #32    |
-| Six extra News cards                   | Reveal       | Gang Wars       | —                          | #32    |
+| Unlock                                 | Kind         | Comes with         | Afterwards                 | Update |
+| -------------------------------------- | ------------ | ------------------ | -------------------------- | ------ |
+| The Untouchables Mini-Expansion        | Stretch goal | Gang Wars          | An expansion at €12 (#35)  | #28    |
+| The Nightclub and its Night Associates | Stretch goal | Gangland Empire    | "It won't become an Addon" | #33    |
+| Jack “Poker” Hart                      | Stretch goal | City of Violence   | Not said                   | #36    |
+| The Factory and the Newspaper Tower    | Reveal       | Gangland Empire    | —                          | #32    |
+| Six extra News cards                   | Reveal       | Gang Wars          | —                          | #32    |
+| Thirty-six more acrylic tokens         | Reveal       | Deluxification Set | —                          | #35    |
 
 - **[owner]** Asked to read Updates #32 and #33 and bring the site up to date with what they
   introduce. **[reading]** They introduce no product and change none, so what was added is a
   list: a "Free with this order" panel beneath the cart, showing the unlocks the order earns
-  (`Quote.unlocks`), each with the update's cover as its picture, stored by the site.
+  (`Quote.unlocks`), each with the update's cover as its picture, stored by the site. An
+  unlock whose update's cover shows something else names a picture of its own (`picture`):
+  Update #35's cover is a last-day poster, so the acrylic tokens use the picture of them
+  inside it, set square on white. `PICTURES` in `scripts/build-catalog.ts` names each
+  picture's source.
 - An unlock is earned by a single item being in the order, however it got there: in a pledge,
   as an add-on, or as a bonus of a bundle. So Gangland Empire bought beside Scarface 1920
   earns the Nightclub — "free for all backers with Gangland Empire in their pledge" — which
   has cards for that game too.
-- Under Expansions, Gangland Empire says what is free with it ("Free with it: …") whether or
-  not it is in the order. It is the one such item with a switch; what comes with the game
-  itself has nowhere to say so but the panel.
+- Under its switch, an item says what is free with it ("Free with it: …") whether or not it
+  is in the order: Gangland Empire and City of Violence under Expansions, the Deluxification
+  Set under Deluxe Components. What comes with the game itself has nowhere to say so but the
+  panel.
+- **[owner]** Asked on 14 October 2026 to act on Updates #35 and #36. #35 adds 36 acrylic
+  tokens to the Deluxification Set, free, and prices the Untouchables after the campaign; the rest of it is
+  the last-day appeal. #36 unlocks the third stretch goal.
+- **[reading]** Update #36 does not say who receives Jack “Poker” Hart. He is the sixth Fixer
+  for City of Violence, and is played with it, so he is listed as earned by City of Violence,
+  as the Nightclub is by Gangland Empire. If the campaign says he goes to every backer, or
+  with the core game, change his `with` to `GANG_WARS`.
 - Nothing about what is selected or what it costs changes with an unlock.
 - **[reading]** Only the stretch goals and Update #32's additions are listed. The campaign's
   earlier daily reveals — new neighbourhoods, jobs, corrupts, the Game Trayz insert — also
   went into the core game free, and are not: they were part of the game by the time this site
   was built. The four Safe Boxes, which were one of them, are modelled as an item (7.5).
-- Two of four stretch goals were unlocked on 12 October 2026. Update #33 hints at the third:
-  "a character who needs no introduction".
+- Three of four stretch goals were unlocked by 14 October 2026; the third was the "character
+  who needs no introduction" that Update #33 hinted at.
 
 ### 7.8 The Endgame, and what is due on 15 October
 
@@ -411,7 +425,9 @@ Campaign Update #34 (13 October 2026) announces two things.
   keep buying. Redzen's last campaign ran sixteen hours over.
 - **The Gang Wars Poker Deck**, an add-on published "the moment the Endgame begins": €4 while
   the Endgame lasts, then "its regular price of €12" in the pledge manager. The update also
-  ties it to the third stretch goal, not yet unlocked.
+  ties it to the third stretch goal, which Update #36 showed to be Jack “Poker” Hart, whose
+  bets are settled by drawing from a poker deck — any deck, the update says, though this one
+  is made for him. The panel says so.
 
 **[owner]** Asked to read the update and act on whatever needed it. **[reading]** The deck is
 not on sale yet — a capture on the day found the same 44 products — so it cannot be a product
@@ -623,10 +639,11 @@ committed. `.env` was copied from the Nemesis project's folder without being dis
    storage boxes and its record. That is the Nemesis rule, kept; it reads more oddly here.
 4. **The campaign is nearly over, and the Endgame brings a product.** Its scheduled end is 15
    October 2026 at 20:00 UTC, and the Poker Deck goes on sale at that moment: section 7.8 has
-   what to do then. Two stretch goals were still to unlock on 13 October, and reveals were
-   promised daily: capture again whenever Gamefound changes something. After it ends, the stretch goals become paid
-   add-ons and the pledge prices rise to their list prices, so the site will need capturing
-   again for the late pledge, or a notice that it describes the campaign.
+   what to do then. One stretch goal was still to unlock on 14 October, and reveals were
+   promised daily: capture again whenever Gamefound changes something. After it ends, the
+   Untouchables becomes a €12 expansion and the pledge prices rise to their list prices, so the
+   site will need capturing again for the late pledge, or a notice that it describes the
+   campaign.
 5. **How the Boss Ring reaches an early backer's pledge** is not said by the campaign; the
    cart line only says it is free with a pledge made in the first 72 hours.
 6. **The page's wording and the look of both themes** have not been reviewed by the owner.
@@ -671,14 +688,14 @@ For any change:
 5. Write it down: `CHANGELOG.md`, and the "What's New?" list if a visitor would notice it.
 6. Commit. **Do not push until the owner says to.**
 
-| Job                           | Touch                                                                                                                                        |
-| ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| Prices changed on Gamefound   | Capture, `bun run catalog:build`, `bun test`                                                                                                 |
-| Gamefound added a product     | Classify it in `classification.ts`: a tag, `alsoWith`, `withGame` or `needs` as it calls for                                                 |
-| A new pledge or bundle        | A tier in `shipping.ts` if the tables price it; `BUNDLE_CONTENTS` if Gamefound lists no contents                                             |
-| The shipping tables changed   | `shipping.ts`, by hand from the campaign's image                                                                                             |
-| A stretch goal, or a reveal   | An entry in `UNLOCKS` in `unlocks.ts`, and its update's cover in `UPDATE_COVERS` in `scripts/build-catalog.ts`; then `bun run catalog:build` |
-| A new gift                    | `GIFTS` in `gift.ts`, a `GiftClaim`, a default, and its bit appended in `preferences.ts`                                                     |
-| A new extras switch           | `ExtraTag`, `EXTRAS`, `DEFAULT_PREFERENCES`, an icon — and its bit, which shifts the claims': section 7.12                                   |
-| A new destination or tax rate | `destinations.ts`; a new currency follows from it (`currencies.ts`, `CurrencyCode`)                                                          |
-| A new icon                    | `ICONS` in `generate-fa-icons.ts`, then `bun run icons:generate`                                                                             |
+| Job                           | Touch                                                                                                                                                                                               |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Prices changed on Gamefound   | Capture, `bun run catalog:build`, `bun test`                                                                                                                                                        |
+| Gamefound added a product     | Classify it in `classification.ts`: a tag, `alsoWith`, `withGame` or `needs` as it calls for                                                                                                        |
+| A new pledge or bundle        | A tier in `shipping.ts` if the tables price it; `BUNDLE_CONTENTS` if Gamefound lists no contents                                                                                                    |
+| The shipping tables changed   | `shipping.ts`, by hand from the campaign's image                                                                                                                                                    |
+| A stretch goal, or a reveal   | An entry in `UNLOCKS` in `unlocks.ts`, and its picture's source in `PICTURES` in `scripts/build-catalog.ts` (its update's cover by number, or a `picture` of its own); then `bun run catalog:build` |
+| A new gift                    | `GIFTS` in `gift.ts`, a `GiftClaim`, a default, and its bit appended in `preferences.ts`                                                                                                            |
+| A new extras switch           | `ExtraTag`, `EXTRAS`, `DEFAULT_PREFERENCES`, an icon — and its bit, which shifts the claims': section 7.12                                                                                          |
+| A new destination or tax rate | `destinations.ts`; a new currency follows from it (`currencies.ts`, `CurrencyCode`)                                                                                                                 |
+| A new icon                    | `ICONS` in `generate-fa-icons.ts`, then `bun run icons:generate`                                                                                                                                    |

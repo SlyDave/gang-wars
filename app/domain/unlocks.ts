@@ -25,11 +25,18 @@ export interface Unlock {
   readonly what: string
   /** What the campaign says becomes of it once the campaign is over, where it says. */
   readonly after: string | null
-  /** The campaign update that announced it, whose cover is the picture the site stores. */
+  /** The campaign update that announced it. */
   readonly update: number
+  /**
+   * The name of its picture, for one whose update's cover shows something else; without it,
+   * the picture is that cover. Each name is given a source in scripts/build-catalog.ts.
+   */
+  readonly picture?: string
 }
 
+const CITY_OF_VIOLENCE = 126720
 const GANGLAND_EMPIRE = 126721
+const DELUXIFICATION_SET = 126724
 
 export const UNLOCKS: readonly Unlock[] = [
   {
@@ -38,7 +45,7 @@ export const UNLOCKS: readonly Unlock[] = [
     name: 'The Untouchables Mini-Expansion',
     with: GANG_WARS,
     what: 'Eliot Ness’s agents, who close in on whoever makes the most noise: four boards, four Raid markers and 45 cards.',
-    after: 'It becomes a paid add-on once the campaign ends.',
+    after: 'It becomes an expansion at €12 once the campaign ends.',
     update: 28,
   },
   {
@@ -49,6 +56,15 @@ export const UNLOCKS: readonly Unlock[] = [
     what: 'A thirteenth building for Gangland Empire, with its cards for Gang Wars and for Scarface 1920, and eight Night Associates for each game.',
     after: 'It will not be sold as an add-on.',
     update: 33,
+  },
+  {
+    id: 'jack',
+    kind: 'stretchGoal',
+    name: 'Jack “Poker” Hart',
+    with: CITY_OF_VIOLENCE,
+    what: 'The sixth and last Fixer for City of Violence, with his miniature, his card and his own rules — among them a bet settled by drawing from a poker deck.',
+    after: null,
+    update: 36,
   },
   {
     id: 'factory-newspaper',
@@ -68,16 +84,32 @@ export const UNLOCKS: readonly Unlock[] = [
     after: null,
     update: 32,
   },
+  {
+    id: 'deluxe-tokens',
+    kind: 'reveal',
+    name: 'Thirty-six more acrylic tokens',
+    with: DELUXIFICATION_SET,
+    what: 'Deluxe versions of the tokens the campaign added: 20 Opium tokens, 10 Liquor tokens, 4 Untouchables badges, and 2 Associate Tier tokens for the Solo Mode.',
+    after: null,
+    update: 35,
+    picture: 'deluxe-tokens',
+  },
 ]
 
-/**
- * Where the site keeps the cover picture of a campaign update, relative to its root. An
- * update's cover shows the thing it announces, so it is that thing's picture here.
- */
-export const updateCover = (update: number): string => `images/unlocks/${String(update)}.webp`
+/** Where the site keeps a picture, by its name, relative to its root. */
+export const pictureFile = (name: string): string => `images/unlocks/${name}.webp`
 
-/** Where the site keeps an unlock's picture: the cover of the update that announced it. */
-export const unlockImage = (unlock: Unlock): string => updateCover(unlock.update)
+/**
+ * Where the site keeps the cover picture of a campaign update. An update's cover shows the
+ * thing it announces, so it is usually that thing's picture here.
+ */
+export const updateCover = (update: number): string => pictureFile(String(update))
+
+/** The name of an unlock's picture: its own, or else its update's number, for that cover. */
+export const unlockPicture = (unlock: Unlock): string => unlock.picture ?? String(unlock.update)
+
+/** Where the site keeps an unlock's picture. */
+export const unlockImage = (unlock: Unlock): string => pictureFile(unlockPicture(unlock))
 
 /** The unlocks that come with a product. */
 export const unlocksWith = (productId: number): readonly Unlock[] =>

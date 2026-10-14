@@ -24,6 +24,16 @@ export const CHANGELOG_URL = 'https://github.com/SlyDave/gang-wars/blob/main/CHA
 
 export const CHANGES: readonly ChangeDay[] = [
   {
+    date: '2026-10-14',
+    highlights: [
+      'Jack “Poker” Hart, the third stretch goal, from campaign Update #36: the sixth Fixer for City of Violence, now in “Free with this order” when City of Violence is in your order.',
+      'Thirty-six more acrylic tokens for the Deluxification Set, from Update #35: deluxe Opium and Liquor tokens, Untouchables badges and Associate Tier tokens.',
+      'The Untouchables becomes an expansion at €12 once the campaign ends, as Update #35 says.',
+      'Prices and bundles read again from Gamefound after those updates. Nothing has changed.',
+    ],
+    minor: 1,
+  },
+  {
     date: '2026-10-13',
     highlights: [
       'The Endgame, from campaign Update #34: when it begins, how it keeps the campaign open, and the Gang Wars Poker Deck it brings — €4 while it lasts, €12 afterwards. The deck is not on sale until the Endgame begins, so it is not in the cart yet.',

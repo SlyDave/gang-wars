@@ -10,6 +10,33 @@ Each date links to that day's commits; the first, to everything up to it.
 The "What's New?" list on the site is the short version of this file, with only what a visitor
 would notice. It is kept in [`app/domain/changes.ts`](app/domain/changes.ts).
 
+## [2026-10-14]
+
+### Added
+
+- Jack “Poker” Hart, the campaign's third stretch goal, from campaign Update #36, in "Free
+  with this order": the sixth and last Fixer for City of Violence, with his miniature, his
+  card and his own rules. The update does not say who receives him; the site reads a Fixer for
+  City of Violence as coming with City of Violence, as the Nightclub comes with Gangland
+  Empire, and so lists him as earned by that expansion. City of Violence says "Free with it"
+  under its switch.
+- Thirty-six more acrylic tokens for the Deluxification Set, from campaign Update #35: 20
+  Opium tokens, 10 Liquor tokens, 4 Untouchables badges and 2 Associate Tier tokens for the
+  Solo Mode, the deluxe versions of what the campaign has added. They are listed as earned by
+  the set, with their own picture, since the update's cover shows something else.
+
+### Changed
+
+- The Untouchables said it would become a paid add-on once the campaign ends; it now says
+  what Update #35 says it becomes: an expansion at €12.
+- The Endgame panel's account of the Poker Deck: Update #36 shows what it is for, a deck to
+  draw from for Jack “Poker” Hart's bets, though any poker deck will do.
+- The catalogue was captured again after campaign Updates #35 and #36. Nothing in it had
+  changed.
+- An unlock's picture may now be one of its own rather than its update's cover; such a
+  picture is set square on white, as it is published. `scripts/build-catalog.ts` names each
+  picture's source.
+
 ## [2026-10-13]
 
 ### Added
@@ -107,5 +134,6 @@ The first release.
   not keep the checkout's credentials. Dependabot keeps the pins current.
 - A capture may only contain Gamefound addresses.
 
+[2026-10-14]: https://github.com/SlyDave/gang-wars/commits/main/?since=2026-10-14&until=2026-10-14
 [2026-10-13]: https://github.com/SlyDave/gang-wars/commits/main/?since=2026-10-13&until=2026-10-13
 [2026-10-12]: https://github.com/SlyDave/gang-wars/commits/main/?until=2026-10-12

@@ -12,6 +12,7 @@ import type { Preferences } from '../app/domain/types'
 
 const GANGLAND_EMPIRE = 126721
 const CITY_OF_VIOLENCE = 126720
+const DELUXIFICATION_SET = 126724
 
 const earned = (preferences: Preferences): readonly string[] =>
   buildQuote(preferences).unlocks.map((unlock) => unlock.id)
@@ -33,16 +34,23 @@ describe('what the campaign has unlocked', () => {
     }
   })
 
-  // Campaign Updates #28 and #33: the two stretch goals unlocked by 12 October 2026.
-  test('has the two stretch goals, each with what the campaign says becomes of it', () => {
+  // Campaign Updates #28, #33 and #36: the three stretch goals unlocked by 14 October 2026.
+  test('has the three stretch goals, each with the item that earns it', () => {
     const goals = UNLOCKS.filter((unlock) => unlock.kind === 'stretchGoal')
     expect(goals.map((goal) => [goal.name, getProduct(goal.with).name])).toEqual([
       ['The Untouchables Mini-Expansion', 'Gang Wars (Core Game)'],
       ['The Nightclub and its Night Associates', 'Gangland Empire Expansion'],
+      ['Jack “Poker” Hart', 'City of Violence Expansion'],
     ])
-    for (const goal of goals) {
-      expect(goal.after, goal.name).not.toBeNull()
-    }
+  })
+
+  // Update #35: the Untouchables "will become an expansion with a €12 price tag"; Update #33
+  // says the Nightclub will not be sold on its own.
+  test('says what the campaign says becomes of a stretch goal afterwards', () => {
+    const after = (id: string): string | null | undefined =>
+      UNLOCKS.find((unlock) => unlock.id === id)?.after
+    expect(after('untouchables')).toContain('€12')
+    expect(after('nightclub')).toContain('not be sold')
   })
 })
 
@@ -56,19 +64,29 @@ describe('what an order earns', () => {
     expect(earned(preferencesWith({ extras: ['expansions'] }))).toEqual([
       'untouchables',
       'nightclub',
+      'jack',
       'factory-newspaper',
       'news-cards',
     ])
-    // City of Violence alone does not earn them.
+    // City of Violence alone does not earn them; it earns its own Fixer.
     expect(
       earned(preferencesWith({ extras: ['expansions'], overrides: { [GANGLAND_EMPIRE]: false } })),
-    ).toEqual(['untouchables', 'news-cards'])
+    ).toEqual(['untouchables', 'jack', 'news-cards'])
   })
 
   test('has them for Gangland Empire bought beside Scarface 1920, without Gang Wars', () => {
     expect(earned(preferencesWith({ lines: ['scarface'], extras: ['expansions'] }))).toEqual([
       'nightclub',
       'factory-newspaper',
+    ])
+  })
+
+  // Update #35: the acrylic versions of the campaign's new tokens join the Deluxification Set.
+  test('has the extra acrylic tokens once the Deluxification Set is in it', () => {
+    expect(earned(preferencesWith({ extras: ['deluxe'] }))).toEqual([
+      'untouchables',
+      'news-cards',
+      'deluxe-tokens',
     ])
   })
 
@@ -90,6 +108,12 @@ describe('an item the campaign has added things to', () => {
     expect(items.find((item) => item.id === GANGLAND_EMPIRE)?.gains).toBe(
       'Free with it: The Nightclub and its Night Associates; The Factory and the Newspaper Tower',
     )
-    expect(items.find((item) => item.id === CITY_OF_VIOLENCE)?.gains).toBeNull()
+    expect(items.find((item) => item.id === CITY_OF_VIOLENCE)?.gains).toBe(
+      'Free with it: Jack “Poker” Hart',
+    )
+    const deluxe = describeExtra(preferencesWith({ lines: [] }), 'deluxe').items
+    expect(deluxe.find((item) => item.id === DELUXIFICATION_SET)?.gains).toBe(
+      'Free with it: Thirty-six more acrylic tokens',
+    )
   })
 })

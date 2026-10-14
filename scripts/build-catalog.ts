@@ -18,7 +18,7 @@ import sharp from 'sharp'
 
 import { FOREIGN_CURRENCIES, isCurrencyCode } from '../app/domain/currencies'
 import { ENDGAME_ADDON } from '../app/domain/endgame'
-import { UNLOCKS, updateCover } from '../app/domain/unlocks'
+import { UNLOCKS, pictureFile, unlockPicture } from '../app/domain/unlocks'
 
 interface CapturedOptionValue {
   readonly text: string
@@ -73,15 +73,33 @@ const IMAGE_DIR = 'public/images/products'
 const IMAGE_WIDTH = 640
 const IMAGE_QUALITY = 78
 /**
- * The cover picture of each campaign update that announced something the site shows: an
- * unlock, or the Endgame's add-on. They are not in the capture — an update is not a product —
- * so they are named here, by the update's number.
+ * The pictures of what the site shows from the campaign's updates: the unlocks, and the
+ * Endgame's add-on. They are not in the capture — an update is not a product — so they are
+ * named here. Most are an update's cover, named by the update's number; one whose cover shows
+ * something else is a picture from inside the update, named for what it shows, and made square
+ * by setting it on white, as its picture already is.
  */
-const UPDATE_COVERS: Readonly<Record<number, string>> = {
-  28: 'https://imgcdn.gamefound.com/projectupdate/projects/9938/9077f731-f3a0-497c-b06b-1b9aedad1fc6.png',
-  32: 'https://imgcdn.gamefound.com/projectupdate/projects/9938/2e7614a6-39fe-4583-84ac-0fa2b650c92d.jpg',
-  33: 'https://imgcdn.gamefound.com/projectupdate/projects/9938/11bb4e56-784b-44fb-9e12-ba4503866ef7.jpg',
-  34: 'https://imgcdn.gamefound.com/projectupdate/projects/9938/aa16902d-2e42-434e-a7ad-1df52a76c209.jpg',
+const PICTURES: Readonly<Record<string, { readonly url: string; readonly square?: true }>> = {
+  '28': {
+    url: 'https://imgcdn.gamefound.com/projectupdate/projects/9938/9077f731-f3a0-497c-b06b-1b9aedad1fc6.png',
+  },
+  '32': {
+    url: 'https://imgcdn.gamefound.com/projectupdate/projects/9938/2e7614a6-39fe-4583-84ac-0fa2b650c92d.jpg',
+  },
+  '33': {
+    url: 'https://imgcdn.gamefound.com/projectupdate/projects/9938/11bb4e56-784b-44fb-9e12-ba4503866ef7.jpg',
+  },
+  '34': {
+    url: 'https://imgcdn.gamefound.com/projectupdate/projects/9938/aa16902d-2e42-434e-a7ad-1df52a76c209.jpg',
+  },
+  '36': {
+    url: 'https://imgcdn.gamefound.com/projectupdate/projects/9938/5db5dcab-36ae-4a42-b243-86d219eacb38.jpg',
+  },
+  // Update #35's cover is the campaign's last-day poster; this is the tokens themselves.
+  'deluxe-tokens': {
+    url: 'https://imgcdn.gamefound.com/richtextimage/richtext/992ce74e-ad3a-4fdd-8eb4-e0c28e562ce9.jpg',
+    square: true,
+  },
 }
 const RATES_URL = 'https://api.frankfurter.dev/v2/rates'
 /** Significant figures: enough for a rate of 0.8475 and of 20,060 alike. */
@@ -206,30 +224,32 @@ if (unknownCurrencies.length > 0) {
 
 await mkdir(IMAGE_DIR, { recursive: true })
 
-/** The updates whose covers the site shows: each unlock's, and the Endgame add-on's. */
-const shownUpdates = [...new Set([...UNLOCKS.map((unlock) => unlock.update), ENDGAME_ADDON.update])]
+/** The pictures the site shows from the updates: each unlock's, and the Endgame add-on's. */
+const shownPictures = [...new Set([...UNLOCKS.map(unlockPicture), String(ENDGAME_ADDON.update)])]
 
-/** Stores the cover of every such update, as the products' pictures are stored. */
-const storeUpdateCovers = async (): Promise<number> => {
+/** Stores every such picture, as the products' are stored. */
+const storePictures = async (): Promise<number> => {
   let stored = 0
-  for (const update of shownUpdates) {
-    const source = UPDATE_COVERS[update]
+  for (const name of shownPictures) {
+    const source = PICTURES[name]
     if (source === undefined) {
-      throw new Error(`No cover picture is named for campaign update ${String(update)}`)
+      throw new Error(`No source is named for the picture "${name}"`)
     }
-    const file = `public/${updateCover(update)}`
+    const file = `public/${pictureFile(name)}`
     if (!force && (await Bun.file(file).exists())) {
       continue
     }
-    const response = await fetch(source)
+    const response = await fetch(source.url)
     if (!response.ok) {
-      throw new Error(`${String(response.status)} fetching the cover of update ${String(update)}`)
+      throw new Error(`${String(response.status)} fetching the picture "${name}"`)
     }
     await mkdir(file.slice(0, file.lastIndexOf('/')), { recursive: true })
-    await sharp(await response.arrayBuffer())
-      .resize({ width: IMAGE_WIDTH, withoutEnlargement: true })
-      .webp({ quality: IMAGE_QUALITY })
-      .toFile(file)
+    const image = sharp(await response.arrayBuffer())
+    const sized =
+      source.square === true
+        ? image.resize(IMAGE_WIDTH, IMAGE_WIDTH, { fit: 'contain', background: '#ffffff' })
+        : image.resize({ width: IMAGE_WIDTH, withoutEnlargement: true })
+    await sized.webp({ quality: IMAGE_QUALITY }).toFile(file)
     stored += 1
   }
   return stored
@@ -263,8 +283,8 @@ const catalog = {
 }
 
 await Bun.write(CATALOG, `${JSON.stringify(catalog, null, 2)}\n`)
-const covers = await storeUpdateCovers()
+const pictures = await storePictures()
 console.log(`wrote ${String(products.length)} products to ${CATALOG}, images in ${IMAGE_DIR}`)
 console.log(
-  `stored ${String(covers)} new update covers, of the ${String(shownUpdates.length)} the site shows`,
+  `stored ${String(pictures)} new update pictures, of the ${String(shownPictures.length)} the site shows`,
 )
