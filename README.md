@@ -36,7 +36,6 @@ happens in the browser. There is no server.
 | The page                                      | `app/pages/index.vue`, `app/components/`                 |
 | The "What's New?" list                        | `app/domain/changes.ts`                                  |
 | Stretch goals and other free additions        | `app/domain/unlocks.ts`                                  |
-| The Endgame and its add-on                    | `app/domain/endgame.ts`                                  |
 | The two themes, one per game                  | `app/assets/css/main.css`, `app/composables/useTheme.ts` |
 
 ### The search
@@ -57,7 +56,8 @@ the Scarface 1920 bundles — so counting it would wrongly favour buying everyth
 ### What the numbers are
 
 - **Prices and pledge contents** are Gamefound's, captured on the date shown in the site's
-  footer. They change while the campaign runs; see below for refreshing them.
+  footer. The campaign closed on 16 October 2026, so they are its prices; see below for refreshing
+  them when the Pledge Manager opens.
 - **Bundle contents.** Gamefound lists the three Scarface 1920 bundles, and the pack of six
   Safe Boxes, as single products with nothing to say what is in them. Their contents are typed
   out from the campaign's own graphics and updates, in `classification.ts`.
@@ -74,9 +74,9 @@ the Scarface 1920 bundles — so counting it would wrongly favour buying everyth
   along the way, are not products: there is nothing to choose or pay. Each comes with a
   certain thing in the pledge, so the page lists the ones an order earns. They are typed out
   from the campaign's updates, in `unlocks.ts`.
-- **The Endgame.** The campaign stays open past its scheduled end for as long as backers keep
-  buying, and an add-on is published at that moment: a poker deck. Until Gamefound lists it,
-  it is not a product, so the page tells of it and does not offer it.
+- **The Poker Deck**, the add-on published in the campaign's Endgame, has a switch of its
+  own. Its €4 is the Endgame's offer, which Redzen Games will keep for a few days once the
+  Pledge Manager opens; after that it is €12, and the page says so.
 - **Reward value and saving** compare what is paid with Gamefound's full prices, which for a
   Gang Wars pledge is what the campaign says its contents will cost in the late pledge. There
   is no retail price to compare with: Gang Wars will not be sold in shops.

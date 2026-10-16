@@ -60,6 +60,10 @@ const currency = computed<CurrencyCode>({
         Switch on what you want from the Gang Wars campaign, the Scarface 1920 reprint included.
         This finds the cheapest combination of pledges, bundles and add-ons that gets you all of it.
       </p>
+      <p class="mt-2 max-w-xl text-sm text-muted">
+        The campaign closed on 16 October 2026. Orders are finished in the Pledge Manager, which
+        Redzen Games expect to open in a few months; the prices here are the campaign’s.
+      </p>
     </div>
 
     <div class="flex flex-wrap items-end gap-3 lg:pr-2">

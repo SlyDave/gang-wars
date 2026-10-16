@@ -34,13 +34,14 @@ describe('what the campaign has unlocked', () => {
     }
   })
 
-  // Campaign Updates #28, #33 and #36: the three stretch goals unlocked by 14 October 2026.
-  test('has the three stretch goals, each with the item that earns it', () => {
+  // Campaign Updates #28, #33, #36 and #38: all four of the campaign's stretch goals.
+  test('has the four stretch goals, each with the item that earns it', () => {
     const goals = UNLOCKS.filter((unlock) => unlock.kind === 'stretchGoal')
     expect(goals.map((goal) => [goal.name, getProduct(goal.with).name])).toEqual([
       ['The Untouchables Mini-Expansion', 'Gang Wars (Core Game)'],
       ['The Nightclub and its Night Associates', 'Gangland Empire Expansion'],
       ['Jack “Poker” Hart', 'City of Violence Expansion'],
+      ['The Gang Wars comic, and Vendetta', 'Gang Wars (Core Game)'],
     ])
   })
 
@@ -56,7 +57,7 @@ describe('what the campaign has unlocked', () => {
 
 describe('what an order earns', () => {
   test('is what comes with Gang Wars, for Gang Wars alone', () => {
-    expect(earned(preferencesWith())).toEqual(['untouchables', 'news-cards'])
+    expect(earned(preferencesWith())).toEqual(['untouchables', 'comic-vendetta', 'news-cards'])
   })
 
   // The Nightclub is "free for all backers with Gangland Empire in their pledge".
@@ -65,13 +66,14 @@ describe('what an order earns', () => {
       'untouchables',
       'nightclub',
       'jack',
+      'comic-vendetta',
       'factory-newspaper',
       'news-cards',
     ])
     // City of Violence alone does not earn them; it earns its own Fixer.
     expect(
       earned(preferencesWith({ extras: ['expansions'], overrides: { [GANGLAND_EMPIRE]: false } })),
-    ).toEqual(['untouchables', 'jack', 'news-cards'])
+    ).toEqual(['untouchables', 'jack', 'comic-vendetta', 'news-cards'])
   })
 
   test('has them for Gangland Empire bought beside Scarface 1920, without Gang Wars', () => {
@@ -85,6 +87,7 @@ describe('what an order earns', () => {
   test('has the extra acrylic tokens once the Deluxification Set is in it', () => {
     expect(earned(preferencesWith({ extras: ['deluxe'] }))).toEqual([
       'untouchables',
+      'comic-vendetta',
       'news-cards',
       'deluxe-tokens',
     ])

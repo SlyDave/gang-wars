@@ -65,6 +65,9 @@ export const GANG_WARS = 126719
 export const SCARFACE_1920 = 126728
 export const BLOODY_BUSINESS = 126731
 
+/** The deck Redzen Games published when the Endgame began (campaign Updates #34 and #39). */
+export const POKER_DECK = 129404
+
 /** The four Safe Boxes of the Gang Wars gangs, and the two of Scarface 1920's later gangs. */
 export const SAFES_OF_FOUR = 128816
 export const SAFES_OF_TWO = 128721
@@ -78,6 +81,7 @@ export const REQUIREMENTS: readonly Requirement[] = [
   // Gangland Empire "is also compatible with Scarface 1920" (campaign Update #31).
   ...shared('gangwars', 'scarface', 'expansions', 126721),
   ...extra('gangwars', 'minis', 106734, 126722), // Newsboy, Boss Ring
+  ...extra('gangwars', 'poker', POKER_DECK),
   ...extra('gangwars', 'deluxe', 126724), // Deluxification Set
   // The Big Truck, with the Safe Boxes, will "also enhance your original Scarface 1920
   // experience" (Update #31).

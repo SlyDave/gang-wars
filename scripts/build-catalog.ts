@@ -17,7 +17,6 @@ import { mkdir } from 'node:fs/promises'
 import sharp from 'sharp'
 
 import { FOREIGN_CURRENCIES, isCurrencyCode } from '../app/domain/currencies'
-import { ENDGAME_ADDON } from '../app/domain/endgame'
 import { UNLOCKS, pictureFile, unlockPicture } from '../app/domain/unlocks'
 
 interface CapturedOptionValue {
@@ -73,9 +72,8 @@ const IMAGE_DIR = 'public/images/products'
 const IMAGE_WIDTH = 640
 const IMAGE_QUALITY = 78
 /**
- * The pictures of what the site shows from the campaign's updates: the unlocks, and the
- * Endgame's add-on. They are not in the capture — an update is not a product — so they are
- * named here. Most are an update's cover, named by the update's number; one whose cover shows
+ * The pictures of the unlocks, which the site shows from the campaign's updates. They are not
+ * in the capture — an update is not a product — so they are named here. Most are an update's cover, named by the update's number; one whose cover shows
  * something else is a picture from inside the update, named for what it shows, and made square
  * by setting it on white, as its picture already is.
  */
@@ -89,11 +87,11 @@ const PICTURES: Readonly<Record<string, { readonly url: string; readonly square?
   '33': {
     url: 'https://imgcdn.gamefound.com/projectupdate/projects/9938/11bb4e56-784b-44fb-9e12-ba4503866ef7.jpg',
   },
-  '34': {
-    url: 'https://imgcdn.gamefound.com/projectupdate/projects/9938/aa16902d-2e42-434e-a7ad-1df52a76c209.jpg',
-  },
   '36': {
     url: 'https://imgcdn.gamefound.com/projectupdate/projects/9938/5db5dcab-36ae-4a42-b243-86d219eacb38.jpg',
+  },
+  '38': {
+    url: 'https://imgcdn.gamefound.com/projectupdate/projects/9938/99470d5d-8126-4017-ba2c-6f8a68d2ce56.png',
   },
   // Update #35's cover is the campaign's last-day poster; this is the tokens themselves.
   'deluxe-tokens': {
@@ -224,8 +222,8 @@ if (unknownCurrencies.length > 0) {
 
 await mkdir(IMAGE_DIR, { recursive: true })
 
-/** The pictures the site shows from the updates: each unlock's, and the Endgame add-on's. */
-const shownPictures = [...new Set([...UNLOCKS.map(unlockPicture), String(ENDGAME_ADDON.update)])]
+/** The pictures the site shows from the updates: each unlock's. */
+const shownPictures = [...new Set(UNLOCKS.map(unlockPicture))]
 
 /** Stores every such picture, as the products' are stored. */
 const storePictures = async (): Promise<number> => {

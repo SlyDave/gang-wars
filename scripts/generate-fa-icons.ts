@@ -101,6 +101,7 @@ const ICONS: Readonly<Record<string, IconSource>> = {
   // The extras, one per switch.
   expansions: light('faPuzzlePiece'),
   minis: light('faChessPawn'),
+  poker: light('faCards', 'diamond'),
   deluxe: light('faGem'),
   safes: light('faVault'),
   playmat: light('faMap'),

@@ -73,6 +73,23 @@ describe('the preferences as a string', () => {
     expect(decodePreferences(code)).toEqual(preferences)
   })
 
+  // The Poker Deck's switch came after the gifts', and its bit after theirs.
+  test('read as they did before the Poker Deck had a switch', () => {
+    const everything = preferencesWith({
+      lines: ALL_LINES,
+      extras: ALL_EXTRAS.filter((tag) => tag !== 'poker'),
+      followedBeforeLaunch: true,
+      earlyBacker: true,
+      returningBacker: true,
+    })
+    // Sixteen bits, all on: tax, both games, the ten extras there were, the three gifts.
+    expect(encodePreferences(everything)).toBe('1ekf-GB-EUR-')
+    expect(decodePreferences('1ekf-GB-EUR-')).toEqual(everything)
+    expect(
+      encodePreferences(preferencesWith({ lines: [], extras: ['poker'], includeTax: false })),
+    ).toBe('1ekg-GB-EUR-')
+  })
+
   test('drop a pick for something that is not an extra, and keep the rest', () => {
     const code = `3-GB-EUR--${GANG_WARS.toString(36)}.${(126720).toString(36)}-`
     expect(decodePreferences(code)?.overrides).toEqual({ 126720: true })

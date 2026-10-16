@@ -5,6 +5,7 @@ export type GameLine = 'gangwars' | 'scarface'
 export type ExtraTag =
   | 'expansions'
   | 'minis'
+  | 'poker'
   | 'deluxe'
   | 'safes'
   | 'playmat'

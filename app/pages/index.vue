@@ -36,7 +36,6 @@ onMounted(() => {
         <QuoteTotals :quote="quote" />
         <QuoteCart :quote="quote" />
         <QuoteUnlocks :quote="quote" />
-        <QuoteEndgame />
         <QuoteNotes :quote="quote" />
       </div>
     </main>

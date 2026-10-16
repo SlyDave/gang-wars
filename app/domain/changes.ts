@@ -24,6 +24,16 @@ export const CHANGELOG_URL = 'https://github.com/SlyDave/gang-wars/blob/main/CHA
 
 export const CHANGES: readonly ChangeDay[] = [
   {
+    date: '2026-10-16',
+    highlights: [
+      'The campaign is over: it closed on 16 October 2026, after a five-hour Endgame. The page says so, and that orders are finished in the Pledge Manager, which Redzen Games expect to open in a few months.',
+      'The Gang Wars Poker Deck, published when the Endgame began, has a switch of its own. Its €4 is the Endgame’s offer, which is to be kept for a few days once the Pledge Manager opens; then it is €12.',
+      'The fourth and last stretch goal, from campaign Update #38: a printed Gang Wars comic, and the Vendetta module with its Thompson miniature, free with Gang Wars.',
+      'Prices and bundles read again from Gamefound after the campaign closed. Only the deck is new.',
+    ],
+    minor: 2,
+  },
+  {
     date: '2026-10-14',
     highlights: [
       'Jack “Poker” Hart, the third stretch goal, from campaign Update #36: the sixth Fixer for City of Violence, now in “Free with this order” when City of Violence is in your order.',

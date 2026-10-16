@@ -10,6 +10,39 @@ Each date links to that day's commits; the first, to everything up to it.
 The "What's New?" list on the site is the short version of this file, with only what a visitor
 would notice. It is kept in [`app/domain/changes.ts`](app/domain/changes.ts).
 
+## [2026-10-16]
+
+### Added
+
+- A Poker Deck switch, for the Gang Wars Poker Deck that Redzen Games published when the
+  Endgame began (campaign Updates #34 and #39). It is a Gang Wars add-on like nothing else on
+  sale, so it is an eleventh extra rather than one more item under another. Its bit in the
+  preferences string comes after the three gifts', so every link and saved choice from before
+  reads as it did, with the deck off.
+- A note under "Good to know" when the deck is in the order: its €4 is the Endgame's offer,
+  which Redzen Games will keep for a few days once the Pledge Manager opens, for backers who
+  missed it (campaign Update #40); after that it is €12.
+- The campaign's fourth and last stretch goal, from campaign Update #38, in "Free with this
+  order": a printed comic of about twelve pages by Miki Montlló, and Vendetta, a module with a
+  Thompson miniature. Both come with Gang Wars, in every pledge that has it.
+
+### Changed
+
+- The campaign closed on 16 October 2026 at 01:10 UTC, after an Endgame that ran five hours
+  past its scheduled end. The header says so, and that orders are finished in the Pledge
+  Manager, which Redzen Games expect to open in a few months; the cart's instructions say the
+  list is for the Pledge Manager.
+- "Free with this order" no longer says the campaign has more to come; it unlocked all four of
+  its stretch goals. The Untouchables says it is free only to those who backed the campaign.
+- The catalogue was captured again after the campaign closed. The deck is the one new product;
+  nothing else had changed but the order Gamefound lists things in.
+
+### Removed
+
+- The Endgame panel, which told of the deck before it was on sale. The deck is now in the
+  catalogue, the search and the cart, so the panel, `endgame.ts` and their tests are gone, and
+  so is Update #34's cover, which only the panel showed.
+
 ## [2026-10-14]
 
 ### Added
@@ -134,6 +167,7 @@ The first release.
   not keep the checkout's credentials. Dependabot keeps the pins current.
 - A capture may only contain Gamefound addresses.
 
+[2026-10-16]: https://github.com/SlyDave/gang-wars/commits/main/?since=2026-10-16&until=2026-10-16
 [2026-10-14]: https://github.com/SlyDave/gang-wars/commits/main/?since=2026-10-14&until=2026-10-14
 [2026-10-13]: https://github.com/SlyDave/gang-wars/commits/main/?since=2026-10-13&until=2026-10-13
 [2026-10-12]: https://github.com/SlyDave/gang-wars/commits/main/?until=2026-10-12

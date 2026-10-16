@@ -38,6 +38,7 @@ export const EXTRAS: readonly {
 }[] = [
   { tag: 'expansions', label: 'Expansions', icon: 'i-fa-expansions' },
   { tag: 'minis', label: 'Mini-Expansions', icon: 'i-fa-minis' },
+  { tag: 'poker', label: 'Poker Deck', icon: 'i-fa-poker' },
   { tag: 'deluxe', label: 'Deluxe Components', icon: 'i-fa-deluxe' },
   { tag: 'safes', label: 'Safe Boxes', icon: 'i-fa-safes' },
   { tag: 'playmat', label: 'Playmat(s)', icon: 'i-fa-playmat' },
@@ -56,6 +57,7 @@ export const DEFAULT_PREFERENCES: Preferences = {
   extras: {
     expansions: false,
     minis: false,
+    poker: false,
     deluxe: false,
     safes: false,
     playmat: false,
@@ -84,12 +86,24 @@ const LIST_SEPARATOR = '.'
 const RADIX = 36
 const MAX_TAX_RATE = 100
 
+/**
+ * The switches added after the gifts' were. Their bits come after the gifts', so that a string
+ * written before they existed reads as it did, with them off.
+ */
+const LATER_EXTRAS: readonly ExtraTag[] = ['poker']
+
+/** The extras whose bits come before the gifts', in the order they are packed. */
+const FIRST_EXTRAS: readonly ExtraTag[] = EXTRAS.map(({ tag }) => tag).filter(
+  (tag) => !LATER_EXTRAS.includes(tag),
+)
+
 /** The on/off choices, in the order their bits are packed. Append, never reorder. */
 const flags = (preferences: Preferences): readonly boolean[] => [
   preferences.includeTax,
   ...LINES.map(({ line }) => preferences.lines[line]),
-  ...EXTRAS.map(({ tag }) => preferences.extras[tag]),
+  ...FIRST_EXTRAS.map((tag) => preferences.extras[tag]),
   ...GIFTS.map(({ claim }) => preferences[claim]),
+  ...LATER_EXTRAS.map((tag) => preferences.extras[tag]),
 ]
 
 export const encodePreferences = (preferences: Preferences): string => {
@@ -171,7 +185,7 @@ export const decodePreferences = (code: string): Preferences | null => {
     lines[line] = next()
   }
   const extras = { ...DEFAULT_PREFERENCES.extras }
-  for (const { tag } of EXTRAS) {
+  for (const tag of FIRST_EXTRAS) {
     extras[tag] = next()
   }
   const claims = {
@@ -181,6 +195,9 @@ export const decodePreferences = (code: string): Preferences | null => {
   }
   for (const { claim } of GIFTS) {
     claims[claim] = next()
+  }
+  for (const tag of LATER_EXTRAS) {
+    extras[tag] = next()
   }
 
   const taken = decodeList(takenText)

@@ -1,9 +1,22 @@
 <script setup lang="ts">
+import { getProduct } from '~/domain/catalog'
+import { POKER_DECK } from '~/domain/classification'
+import { updateUrl } from '~/domain/gift'
+
 import type { Quote } from '~/domain/quote'
 
 const props = defineProps<{
   quote: Quote
 }>()
+
+const { format } = useMoney()
+
+const deck = getProduct(POKER_DECK)
+
+/** The deck's price is its Endgame offer, which is to run out (campaign Update #40). */
+const hasDeck = computed<boolean>(() =>
+  props.quote.lines.some((line) => line.product.id === POKER_DECK),
+)
 
 const bonusNames = computed<string>(() =>
   props.quote.bonus.map((product) => product.name).join(', '),
@@ -47,6 +60,28 @@ const mayOweTariffs = computed<boolean>(() =>
             The campaign only gives estimates for the pledges and the Scarface 1920 bundles, so
             expect more on top for the add-ons in this order.
           </template>
+        </p>
+      </li>
+
+      <li
+        v-if="hasDeck"
+        class="flex items-start gap-3"
+      >
+        <UIcon
+          name="i-fa-clock"
+          class="mt-0.5 size-4 shrink-0 text-warning"
+        />
+        <p class="text-toned">
+          <span class="font-semibold text-highlighted">The Poker Deck’s price is an offer.</span>
+          {{ format(deck.effectivePrice) }} was its price during the Endgame. Redzen Games will keep
+          that offer for a few days once the Pledge Manager opens, for backers who missed it; after
+          that the deck is {{ format(deck.price) }}.
+          <ULink
+            :to="updateUrl(40)"
+            target="_blank"
+            class="text-primary underline underline-offset-2 hover:no-underline"
+            >Campaign Update #40</ULink
+          >.
         </p>
       </li>
 

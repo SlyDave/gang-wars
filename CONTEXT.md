@@ -14,19 +14,19 @@ committed on 11 October, held at the owner's word, and first pushed on 12 Octobe
 
 ## 1. Snapshot
 
-|                  |                                                                                  |
-| ---------------- | -------------------------------------------------------------------------------- |
-| What it is       | A static site that works out the cheapest way to back Gang Wars on Gamefound     |
-| Live at          | <https://gangwars.slydave.com/>                                                  |
-| Repository       | <https://github.com/SlyDave/gang-wars> — public, GPL v3, default branch `main`   |
-| Hosting          | GitHub Pages, built by GitHub Actions, custom domain (DNS through Cloudflare)    |
-| Stack            | Nuxt 4.5 + Nuxt UI 4 (Tailwind 4), TypeScript, Bun; pre-rendered, no server      |
-| Campaign         | <https://gamefound.com/en/projects/redzen/gang-wars/rewards>, by Redzen Games    |
-| Campaign dates   | 22 September to 15 October 2026, 20:00 UTC, with an "endgame" that may run it on |
-| Catalogue        | Captured 14 October 2026, 19:53 UTC, after campaign Update #36                   |
-| Catalogue size   | 44 products: 4 pledges (sets), 4 bundles typed out by hand, 36 sold singly       |
-| Classified items | 36 requirements in `app/domain/classification.ts`                                |
-| Tests            | 134, all passing (`bun test`)                                                    |
+|                  |                                                                                                                |
+| ---------------- | -------------------------------------------------------------------------------------------------------------- |
+| What it is       | A static site that works out the cheapest way to back Gang Wars on Gamefound                                   |
+| Live at          | <https://gangwars.slydave.com/>                                                                                |
+| Repository       | <https://github.com/SlyDave/gang-wars> — public, GPL v3, default branch `main`                                 |
+| Hosting          | GitHub Pages, built by GitHub Actions, custom domain (DNS through Cloudflare)                                  |
+| Stack            | Nuxt 4.5 + Nuxt UI 4 (Tailwind 4), TypeScript, Bun; pre-rendered, no server                                    |
+| Campaign         | <https://gamefound.com/en/projects/redzen/gang-wars/rewards>, by Redzen Games                                  |
+| Campaign dates   | 22 September to 16 October 2026, 01:10 UTC: due to end at 20:00 UTC on the 15th, its Endgame ran five hours on |
+| Catalogue        | Captured 16 October 2026, 18:59 UTC, after the campaign closed (Update #40)                                    |
+| Catalogue size   | 45 products: 4 pledges (sets), 4 bundles typed out by hand, 37 sold singly                                     |
+| Classified items | 37 requirements in `app/domain/classification.ts`                                                              |
+| Tests            | 131, all passing (`bun test`)                                                                                  |
 
 ## 2. The brief
 
@@ -55,7 +55,7 @@ files, and its `CONTEXT.md` is the fuller account of the shared design.
 
 | Feature                                        | Here                                                                      |
 | ---------------------------------------------- | ------------------------------------------------------------------------- |
-| Game switches, extras switches, picks          | Yes: two games, ten extras (section 7)                                    |
+| Game switches, extras switches, picks          | Yes: two games, eleven extras (section 7)                                 |
 | Exact cheapest-combination search              | Yes, unchanged                                                            |
 | Shipping from the campaign's table             | Yes: two tables, thirteen regions (section 6)                             |
 | Split or single shipping                       | **No.** The campaign always sends the two games apart; there is no choice |
@@ -106,7 +106,7 @@ Set by the owner on the Nemesis project and carried over, or set for this one.
 | Pledge       | One of the four Gang Wars rewards: Basic, Mobster, Big Boss, Empire. Sets, on Gamefound                     |
 | Bundle       | One of the three Scarface 1920 bundles, or the pack of six Safe Boxes: single products on Gamefound         |
 | Requirement  | One single item a visitor can want, by Gamefound product id                                                 |
-| Tag          | What an item is: `core` (a game itself) or one of the ten extras                                            |
+| Tag          | What an item is: `core` (a game itself) or one of the eleven extras                                         |
 | Extra        | A category with a switch: expansions, minis, deluxe, safes, playmat, sleeves, artbook, storage, solo, vinyl |
 | Pick         | A single item ticked or unticked against its switch (`Preferences.overrides`)                               |
 | Gift         | An add-on that is free to a backer who can claim it (section 7.6)                                           |
@@ -264,12 +264,13 @@ price. The calculator recommends the pledge: section 7.9.
 ### 7.1 Classification
 
 Every single item on sale is one `Requirement`: an id, the game it belongs to, and a tag. The
-ten extras and what is in each:
+eleven extras and what is in each:
 
 | Extra (label)              | Gang Wars                         | Scarface 1920                                                                         |
 | -------------------------- | --------------------------------- | ------------------------------------------------------------------------------------- |
 | `expansions` Expansions    | City of Violence, Gangland Empire | The Enforcers, Bloody Business, Red Dragons Tong, Golden Oaks                         |
 | `minis` Mini-Expansions    | Newsboy, Boss Ring                | Paperboy, Melvin Purvis, Night Deck                                                   |
+| `poker` Poker Deck         | Poker Deck [ENDGAME]              | —                                                                                     |
 | `deluxe` Deluxe Components | Deluxification Set, Big Truck     | Bloody Business Deluxification Set, Pre-painted Goods, Business Markers, Money Tokens |
 | `safes` Safe Boxes         | The pack of four, the pack of two | —                                                                                     |
 | `playmat` Playmat(s)       | Neoprene Playmat                  | Original, Bloody Business Annex, XL, Smaller                                          |
@@ -281,6 +282,10 @@ ten extras and what is in each:
 
 All of that is **[reading]**: the campaign has two add-on categories, one per game, and no
 finer ones. The Nemesis switches were the owner's list; these were chosen to match it in kind.
+The Poker Deck came last, published in the Endgame (7.8). Where it should go was put to the
+owner, with a switch of its own recommended; with no answer by the time it was on sale, it got
+that switch, being like nothing else in the catalogue. Moving it under another is a change to
+its tag in `classification.ts`, and to `EXTRAS` and `LATER_EXTRAS` in `preferences.ts`.
 
 ### 7.2 What the switches ask for
 
@@ -380,6 +385,7 @@ certain thing in their pledge.
 | The Untouchables Mini-Expansion        | Stretch goal | Gang Wars          | An expansion at €12 (#35)  | #28    |
 | The Nightclub and its Night Associates | Stretch goal | Gangland Empire    | "It won't become an Addon" | #33    |
 | Jack “Poker” Hart                      | Stretch goal | City of Violence   | Not said                   | #36    |
+| The Gang Wars comic, and Vendetta      | Stretch goal | Gang Wars          | Not said                   | #38    |
 | The Factory and the Newspaper Tower    | Reveal       | Gangland Empire    | —                          | #32    |
 | Six extra News cards                   | Reveal       | Gang Wars          | —                          | #32    |
 | Thirty-six more acrylic tokens         | Reveal       | Deluxification Set | —                          | #35    |
@@ -412,47 +418,41 @@ certain thing in their pledge.
   earlier daily reveals — new neighbourhoods, jobs, corrupts, the Game Trayz insert — also
   went into the core game free, and are not: they were part of the game by the time this site
   was built. The four Safe Boxes, which were one of them, are modelled as an item (7.5).
-- Three of four stretch goals were unlocked by 14 October 2026; the third was the "character
-  who needs no introduction" that Update #33 hinted at.
+- All four stretch goals were unlocked before the campaign closed. The third was the
+  "character who needs no introduction" that Update #33 hinted at; the fourth (Update #38,
+  15 October 2026) is two things, listed as one: a printed comic of about twelve pages, "with
+  every pledge that includes Gang Wars", and Vendetta, a module with a Thompson miniature,
+  "added FOR FREE to Gang Wars".
+- Update #37, the campaign's recap, says the Mobster, Big Boss and Empire pledges have
+  everything the campaign unlocked. They hold the core game and both expansions, so that is
+  what the per-item rule above gives them too.
+- **[reading]** The Untouchables is "free for backers only until the campaign ends" (Update
+  #37). It is still listed as free with Gang Wars, since the site's visitors now are mostly
+  backers finishing their orders; whether a late backer in the Pledge Manager gets it is not
+  said.
 
-### 7.8 The Endgame, and what is due on 15 October
+### 7.8 The Endgame, and the Poker Deck
 
-Campaign Update #34 (13 October 2026) announces two things.
+Campaign Update #34 (13 October 2026) announced the Endgame: Gamefound does not close the
+campaign at its scheduled end, but starts a ten-minute countdown that each backer's first
+purchase puts back. With it came the Gang Wars Poker Deck, an add-on published the moment the
+Endgame began: €4 while it lasted, then "its regular price of €12" in the Pledge Manager. It is
+the deck Jack “Poker” Hart's bets are drawn from (Update #36), though any deck will do.
 
-- **The Endgame.** Gamefound does not close the campaign at its scheduled end, 15 October
-  2026 at 20:00 UTC. A ten-minute countdown starts then, and every backer's first purchase
-  after that puts it back to ten minutes, so the campaign stays open for as long as people
-  keep buying. Redzen's last campaign ran sixteen hours over.
-- **The Gang Wars Poker Deck**, an add-on published "the moment the Endgame begins": €4 while
-  the Endgame lasts, then "its regular price of €12" in the pledge manager. The update also
-  ties it to the third stretch goal, which Update #36 showed to be Jack “Poker” Hart, whose
-  bets are settled by drawing from a poker deck — any deck, the update says, though this one
-  is made for him. The panel says so.
+Until the deck was on sale the site told of it in a panel of its own, which changed by itself
+at the scheduled end. The Endgame began on 15 October 2026 at 20:00 UTC (Update #39) and ran
+until 01:10 UTC on the 16th; `campaignEnd` in the capture is now that real end.
 
-**[owner]** Asked to read the update and act on whatever needed it. **[reading]** The deck is
-not on sale yet — a capture on the day found the same 44 products — so it cannot be a product
-here: not in the catalogue, the search or the cart. What was added is a panel that tells of
-it (`QuoteEndgame`, `endgame.ts`): its name, both prices, the update's cover as its picture,
-when the Endgame begins in UTC and by the visitor's own clock, and how the Endgame works.
+**[owner]** Asked on 16 October to read Updates #37 to #40 and act on them. The capture that
+day had the deck as product 129404, "Poker Deck [ENDGAME]", at €4 with a list price of €12. So:
 
-- The panel changes by itself at the scheduled end. Before, the deck is "not on sale yet";
-  after, it "went on sale when the Endgame began" and the visitor is told to add it on
-  Gamefound by hand, since the catalogue was read before it existed. It cannot know whether
-  the Endgame is still running, and does not say.
-- The page is built ahead of time, so which of the two it shows starts as it was at the build
-  (`useState`, handed to the browser with the page) and is corrected once the page is
-  running. The visitor's local time is only filled in then, too. Both are to keep the built
-  page and the browser's first rendering the same.
-
-**What is due once the Endgame has begun** (from 15 October, 20:00 UTC):
-
-1. Capture the catalogue again. The deck will be a new product; `bun test` fails twice — the
-   classification does not know it, and `tests/endgame.test.ts` finds it in the catalogue.
-2. Classify it in `classification.ts`. It is a Gang Wars add-on, and will ship with Gang Wars.
-   It needs a switch: a new extra, or a place under an existing one — the owner's to say.
-3. Retire the panel, or cut it down to how the Endgame works; drop `ENDGAME_ADDON` and its
-   test once the deck is an ordinary product.
-4. Its price will change when the Endgame ends, and so will every pledge's: section 13.
+- It is classified, under a switch of its own (7.1), and the panel, `endgame.ts` and its tests
+  are gone, as is the cover of Update #34, which only the panel showed.
+- Gamefound still prices it at €4. Update #40 says that offer will be kept "for a few days
+  when the Pledge Manager opens", for the backers who missed it. Under "Good to know", a note
+  says so whenever the deck is in the order, with both prices taken from the catalogue.
+- When the Pledge Manager opens, capture again: the deck's price, and perhaps every pledge's
+  for late backers (section 13).
 
 ### 7.9 The search
 
@@ -523,7 +523,8 @@ All sums are in euro cents.
   Rates are fetched from Frankfurter by the browser, falling back to the day of the capture.
 - The choices are packed into a short code — `3-GB-EUR-` for the defaults — kept in
   `localStorage` (`gang-wars:preferences`) and in the address as `?c=`. The bits are, in
-  order: tax, the two games, the ten extras, the three claims. **Append, never reorder.**
+  order: tax, the two games, the ten extras there were at first, the three claims, then the
+  Poker Deck, whose switch came after them (`LATER_EXTRAS`). **Append, never reorder.**
 - The cart lists Gang Wars, then Scarface 1920; within each, the pledge or bundle first, then
   add-ons in the order of the extras switches, then by name.
 
@@ -539,8 +540,7 @@ right, which stays in view. On a phone a bar at the foot carries the total.
 | Free gifts     | `ChoicesBacker`   | Your best order            | `QuoteTotals`  |
 | Games          | `ChoicesGames`    | Add to your Gamefound cart | `QuoteCart`    |
 | Extras         | `ChoicesExtras`   | Free with this order       | `QuoteUnlocks` |
-| Delivery & tax | `ChoicesDelivery` | The Endgame                | `QuoteEndgame` |
-|                |                   | Good to know               | `QuoteNotes`   |
+| Delivery & tax | `ChoicesDelivery` | Good to know               | `QuoteNotes`   |
 
 The header has the name with the "What's New?" button across from it, then Style, Currency,
 Reset and Donate. Every panel is a `PaperPanel`.
@@ -637,13 +637,12 @@ committed. `.env` was copied from the Nemesis project's folder without being dis
    brings a second shipment (7.4); gifts being free only with Gang Wars (7.6).
 3. **The whole-category rule** (7.2) means "All" with only Gang Wars takes Scarface 1920's
    storage boxes and its record. That is the Nemesis rule, kept; it reads more oddly here.
-4. **The campaign is nearly over, and the Endgame brings a product.** Its scheduled end is 15
-   October 2026 at 20:00 UTC, and the Poker Deck goes on sale at that moment: section 7.8 has
-   what to do then. One stretch goal was still to unlock on 14 October, and reveals were
-   promised daily: capture again whenever Gamefound changes something. After it ends, the
-   Untouchables becomes a €12 expansion and the pledge prices rise to their list prices, so the
-   site will need capturing again for the late pledge, or a notice that it describes the
-   campaign.
+4. **The campaign is over** (16 October 2026, 01:10 UTC, Update #40), and the page says so:
+   orders are finished in the Pledge Manager, which Redzen Games expect to open in a few
+   months, and the prices shown are the campaign's. When it opens, capture again: the Poker
+   Deck's €4 offer is kept only for a few days then, the Untouchables becomes a €12
+   expansion, and late backers may pay the list prices. Whether the site should then price a
+   late pledge, or stay a record of the campaign, is the owner's to say.
 5. **How the Boss Ring reaches an early backer's pledge** is not said by the campaign; the
    cart line only says it is free with a pledge made in the first 72 hours.
 6. **The page's wording and the look of both themes** have not been reviewed by the owner.

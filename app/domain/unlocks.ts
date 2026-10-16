@@ -45,7 +45,8 @@ export const UNLOCKS: readonly Unlock[] = [
     name: 'The Untouchables Mini-Expansion',
     with: GANG_WARS,
     what: 'Eliot Ness’s agents, who close in on whoever makes the most noise: four boards, four Raid markers and 45 cards.',
-    after: 'It becomes an expansion at €12 once the campaign ends.',
+    after:
+      'Free only to those who backed the campaign; it is to be sold afterwards as an expansion at €12.',
     update: 28,
   },
   {
@@ -65,6 +66,15 @@ export const UNLOCKS: readonly Unlock[] = [
     what: 'The sixth and last Fixer for City of Violence, with his miniature, his card and his own rules — among them a bet settled by drawing from a poker deck.',
     after: null,
     update: 36,
+  },
+  {
+    id: 'comic-vendetta',
+    kind: 'stretchGoal',
+    name: 'The Gang Wars comic, and Vendetta',
+    with: GANG_WARS,
+    what: 'A printed comic of about twelve pages by Miki Montlló, telling how the gang war began; and Vendetta, a module that makes a target of whoever last opened fire, with a 6 cm Thompson miniature.',
+    after: null,
+    update: 38,
   },
   {
     id: 'factory-newspaper',
@@ -100,12 +110,9 @@ export const UNLOCKS: readonly Unlock[] = [
 export const pictureFile = (name: string): string => `images/unlocks/${name}.webp`
 
 /**
- * Where the site keeps the cover picture of a campaign update. An update's cover shows the
- * thing it announces, so it is usually that thing's picture here.
+ * The name of an unlock's picture: its own, or else its update's number, for that update's
+ * cover, which shows the thing the update announces.
  */
-export const updateCover = (update: number): string => pictureFile(String(update))
-
-/** The name of an unlock's picture: its own, or else its update's number, for that cover. */
 export const unlockPicture = (unlock: Unlock): string => unlock.picture ?? String(unlock.update)
 
 /** Where the site keeps an unlock's picture. */

@@ -62,8 +62,9 @@ const sections = computed<readonly Section[]>(() => {
 
     <template v-else>
       <p class="mb-4 text-xs text-muted">
-        Add exactly these, one of each, to reproduce the order. They are listed game by game: the
-        pledge or bundle first, then the add-ons by category.
+        Add exactly these, one of each, to reproduce the order: the campaign is over, so in the
+        Pledge Manager, once it opens. They are listed game by game: the pledge or bundle first,
+        then the add-ons by category.
       </p>
       <div class="grid grid-cols-1 gap-5">
         <section

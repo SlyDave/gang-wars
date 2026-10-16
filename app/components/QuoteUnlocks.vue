@@ -40,7 +40,7 @@ const unlocks = computed(() =>
   >
     <p class="mb-4 text-xs text-muted">
       Not things to add to the cart: the campaign puts them in for every backer whose pledge has
-      what earns them. They are what it has unlocked and revealed so far, and it has more to come.
+      what earns them. It unlocked all four of its stretch goals before it closed.
     </p>
     <ul class="grid grid-cols-1 gap-3">
       <li
